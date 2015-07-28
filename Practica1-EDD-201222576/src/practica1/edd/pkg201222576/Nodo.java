@@ -11,10 +11,10 @@ package practica1.edd.pkg201222576;
  */
 public class Nodo {
     
-    Object dato;
+    Personajes dato;
     Nodo next;
     Nodo ant;
-    Nodo(Object a)
+    Nodo(Personajes a)
     {
         dato=a;
         next=null;
