@@ -13,9 +13,14 @@ public class Hola {
     public Hola(){
         
     }
+    public void h(int a){
+        
+        int b=a;
+    }
     
-    
-    
+    public String hl(String b){
+        return b+5;
+    }
     
     
 }
