@@ -4,28 +4,35 @@
  * and open the template in the editor.
  */
 package practica1.edd.pkg201222576;
+import javax.swing.JLabel;
+import java.awt.Font;
 
 /**
  *
  * @author Breynner
  */
-public class Personajes {
+public class Personajes extends JLabel{
     
     public String nombre;
     public String path;
     public int tipo;
     
-    public void SetNombre( String nombreaux){
-        nombre=nombreaux;
+    public Personajes(){
+       
+        setText("hola");
     }
-    public void SetPath( String pathaux){
-        path=pathaux;
+    public void SetNombre(String a){
+        nombre=a;
     }
-    public void SetTipo( int tipoaux){
-        tipo=tipoaux;
+    public void SetPath(String a){
+        path=a;
     }
-    public int GetTipo(){
-    return tipo;
+    public void SethTipo(int a){
+        tipo=a;
     }
+
+  
+    
+    
     
 }

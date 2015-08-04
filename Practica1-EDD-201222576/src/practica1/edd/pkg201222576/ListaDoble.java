@@ -14,29 +14,37 @@ public class ListaDoble {
         ultimo=null;
     }
  
-    public boolean estavacia()
+     public boolean estavacio()
     {
-        if(primero==null) return true;
-        else return false;
+        if(primero==null) {return true;}
+        else {return false;}
     }
- 
-    public ListaDoble insertar(Personajes dat)
+     
+     
+     
+     public void insertar( Personajes datonuevo)
     {
-        if(estavacia())
+        if(estavacio())
         {
-            Nodo nuevo=new Nodo(dat);
+            Nodo nuevo=new Nodo(datonuevo);
             primero=nuevo;
             ultimo=nuevo;
         }
         else
         {
-            Nodo nuevo=new Nodo(dat);
-            ultimo.next=nuevo;
-            nuevo.ant=ultimo;
+            Nodo nuevo=new Nodo(datonuevo);
+            ultimo.siguiente=nuevo;
+            nuevo.anterior=ultimo;
             ultimo=nuevo;
         }
-        return this;
     }
+    
+    
+     
+     
+     
+     
+     
     public void imprimir()
     {
         Nodo actual;
@@ -44,7 +52,7 @@ public class ListaDoble {
         while(actual!=ultimo)
         {
             System.out.println(actual.dato);
-            actual=actual.next;
+            actual=actual.siguiente;
         }
                 System.out.println(actual.dato);
                  

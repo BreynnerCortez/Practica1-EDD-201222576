@@ -5,6 +5,8 @@
  */
 package practica1.edd.pkg201222576;
 
+import javax.swing.JLabel;
+
 /**
  *
  * @author Breynner
@@ -12,12 +14,13 @@ package practica1.edd.pkg201222576;
 public class Nodo {
     
     Personajes dato;
-    Nodo next;
-    Nodo ant;
+    Nodo siguiente;
+    Nodo anterior;
     Nodo(Personajes a)
     {
         dato=a;
-        next=null;
-        ant=null;
+        siguiente=null;
+        anterior=null;
     }
+    
 }
