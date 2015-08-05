@@ -1,6 +1,8 @@
 
 package practica1.edd.pkg201222576;
 
+import javax.swing.JLabel;
+
 /**
  *
  * @author Breynner
@@ -36,16 +38,41 @@ public class ListaDoble {
             ultimo.siguiente=nuevo;
             nuevo.anterior=ultimo;
             ultimo=nuevo;
-        }
+        }        
     }
     
+     public Nodo PILAsacarPrimero(){
+         Nodo aux=primero;
+         primero=primero.siguiente;
+         primero.anterior=null;
+         return aux;
+     }
+     public Nodo COLAsacarUltimo(){
+         if(ultimo.anterior==null){
+             primero=null;
+             ultimo=null;
+             return ultimo;
+         }
+         else{
+         Nodo aux=ultimo;
+         ultimo=ultimo.anterior;
+         ultimo.siguiente=null;
+         return aux;
+         }
+     }
+     
+     
+     
+     
+     
+     
+         public Nodo MostrarSiguiente()
+        {
+        Nodo aux=primero;
+        return aux.siguiente;
+        }
     
-     
-     
-     
-     
-     
-    public void imprimir()
+//    public void Recorrer()
     {
         Nodo actual;
         actual=primero;
