@@ -23,6 +23,7 @@ public class FrameEdicion extends javax.swing.JFrame {
      * Creates new form FrameEdicion
      */
     int contador=0;
+    int verificador=0;
     ListaDoble pivote= new ListaDoble();
     
     public FrameEdicion() {
@@ -38,14 +39,14 @@ public class FrameEdicion extends javax.swing.JFrame {
         //Scroll Tipo de datos
         JList Nombres=new JList();
         DefaultListModel elementos = new DefaultListModel();
-        elementos.addElement("1) Heroe");
-        elementos.addElement("2) Final");
-        elementos.addElement("3) Suelo");
-        elementos.addElement("4) Pared");
-        elementos.addElement("5) Enemigo");
-        elementos.addElement("6) Enemigo");
-        elementos.addElement("7) Ficha");
-        elementos.addElement("8) Vida");
+        elementos.addElement("1. Heroe");
+        elementos.addElement("2. Final");
+        elementos.addElement("3. Suelo");
+        elementos.addElement("4. Pared");
+        elementos.addElement("5. Enemigo");
+        elementos.addElement("6. Enemigo");
+        elementos.addElement("7. Ficha");
+        elementos.addElement("8. Vida");
         Nombres.setModel(elementos);
         jScrollPane1.setViewportView(Nombres);
     }
@@ -85,6 +86,11 @@ public class FrameEdicion extends javax.swing.JFrame {
         jTextField3.setEnabled(false);
 
         BtnEditar.setText("Editar Elemento");
+        BtnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEditarActionPerformed(evt);
+            }
+        });
 
         BtnEliminar.setText("Eliminar Elemento");
 
@@ -94,7 +100,7 @@ public class FrameEdicion extends javax.swing.JFrame {
 
         jLabel4.setText("Tipo:");
 
-        BtnConfiJuego.setText("CONFIGURAICION DEL JUEGO");
+        BtnConfiJuego.setText("CONFIGURACION JUEGO");
 
         jScrollPane1.setEnabled(false);
 
@@ -109,7 +115,7 @@ public class FrameEdicion extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(LabelImag, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addGap(18, 29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -182,6 +188,7 @@ public class FrameEdicion extends javax.swing.JFrame {
                 LabelImag.setIcon(icon); 
                 pivote.insertar(Principal.listadoble.primero.dato);
                 if(Principal.listadoble.primero==Principal.listadoble.ultimo){
+                    verificador=1;
                     jTextField1.setText(Principal.listadoble.primero.dato.nombre);
                 jTextField2.setText(Principal.listadoble.primero.dato.path);
                 jTextField3.setText(""+Principal.listadoble.primero.dato.tipo);
@@ -191,6 +198,7 @@ public class FrameEdicion extends javax.swing.JFrame {
                 pivote.insertar(Principal.listadoble.primero.dato);
                     Principal.listadoble=pivote;
                 }else{
+                    verificador=0;
                 Principal.listadoble.primero=Principal.listadoble.primero.siguiente;
                 }
             
@@ -199,6 +207,18 @@ public class FrameEdicion extends javax.swing.JFrame {
             
         
     }//GEN-LAST:event_BtnSigElemActionPerformed
+
+    private void BtnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEditarActionPerformed
+      
+        if(verificador==0){
+        Principal.listadoble.primero.anterior.dato.SetNombre(jTextField1.getText());
+        Principal.listadoble.primero.anterior.dato.SetPath(jTextField2.getText());
+        }if(verificador==1){
+        Principal.listadoble.ultimo.dato.SetNombre(jTextField1.getText());
+        Principal.listadoble.ultimo.dato.SetPath(jTextField2.getText()); 
+        }
+        
+    }//GEN-LAST:event_BtnEditarActionPerformed
 
     /**
      * @param args the command line arguments
