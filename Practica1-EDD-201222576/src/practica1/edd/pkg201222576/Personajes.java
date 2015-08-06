@@ -16,7 +16,14 @@ public class Personajes extends JLabel{
     public String nombre;
     public String path;
     public int tipo;
-    
+    /*1 mario
+      2 castillo
+      3 suelo
+      4 pared
+      5 enemigos
+      6 coin
+      7 vida
+    */
     public Personajes(){
        
         setText("hola");
@@ -27,7 +34,7 @@ public class Personajes extends JLabel{
     public void SetPath(String a){
         path=a;
     }
-    public void SethTipo(int a){
+    public void SetTipo(int a){
         tipo=a;
     }
 

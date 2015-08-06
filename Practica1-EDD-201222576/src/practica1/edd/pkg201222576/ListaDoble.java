@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 public class ListaDoble {
     Nodo primero;
     Nodo ultimo;
+    int nodatos;
     ListaDoble()
     {
         primero=null;
@@ -31,6 +32,7 @@ public class ListaDoble {
             Nodo nuevo=new Nodo(datonuevo);
             primero=nuevo;
             ultimo=nuevo;
+            nodatos++;
         }
         else
         {
@@ -38,6 +40,7 @@ public class ListaDoble {
             ultimo.siguiente=nuevo;
             nuevo.anterior=ultimo;
             ultimo=nuevo;
+            nodatos++;
         }        
     }
     
@@ -72,7 +75,7 @@ public class ListaDoble {
         return aux.siguiente;
         }
     
-//    public void Recorrer()
+   public void Recorrer()
     {
         Nodo actual;
         actual=primero;

@@ -30,7 +30,7 @@ public class Principal extends javax.swing.JFrame {
      */
     JList Nombres=new JList();
     DefaultListModel elementos = new DefaultListModel();
-    
+    public static  ListaDoble listadoble=new ListaDoble();
     public Principal() {
         initComponents();
         setTitle("Mario Bros");
@@ -44,6 +44,7 @@ public class Principal extends javax.swing.JFrame {
         //Lista de objetos
         elementos.addElement("Mario Bros");
         elementos.addElement("Castillo Final");
+        elementos.addElement("Suelo");
         elementos.addElement("Pared");
         elementos.addElement("Goomba");
         elementos.addElement("Koopa");
@@ -52,54 +53,63 @@ public class Principal extends javax.swing.JFrame {
         Nombres.setModel(elementos);
         jScrollPane1.setViewportView(Nombres);
         
+        //accion con click
            Nombres.addMouseListener(new MouseAdapter() {
            public void mouseClicked(MouseEvent evt) {
         JList list = (JList)evt.getSource();
         if (evt.getClickCount() == 1) {
             int index = list.locationToIndex(evt.getPoint());
-            if(index==0){
+             String id=list.getSelectedValue().toString();
+            if(id.compareToIgnoreCase("Mario Bros")==0){
                 jTextField1.setText("Mario Bros");
                 jTextField2.setText("/Imagenes/mario.jpg");
                 URL url = this.getClass().getResource(jTextField2.getText());  
                 ImageIcon icon = new ImageIcon(url);  
                 LabelImagen.setIcon(icon);  
             }
-            if(index==1){
+            if(id.compareToIgnoreCase("Castillo Final")==0){
                 jTextField1.setText("Castillo Final");
-                jTextField2.setText("/Imagenes/castilllo.jpg");
+                jTextField2.setText("/Imagenes/castillo.png");
                 URL url = this.getClass().getResource(jTextField2.getText());  
                 ImageIcon icon = new ImageIcon(url);  
                 LabelImagen.setIcon(icon);  
             }
-            if(index==2){
+            if(id.compareToIgnoreCase("Suelo")==0){
+                jTextField1.setText("Suelo");
+                jTextField2.setText("/Imagenes/suelo.jpg");
+                URL url = this.getClass().getResource(jTextField2.getText());  
+                ImageIcon icon = new ImageIcon(url);  
+                LabelImagen.setIcon(icon);  
+            }
+            if(id.compareToIgnoreCase("Pared")==0){
                 jTextField1.setText("Pared");
                 jTextField2.setText("/Imagenes/pared.jpg");
                 URL url = this.getClass().getResource(jTextField2.getText());  
                 ImageIcon icon = new ImageIcon(url);  
                 LabelImagen.setIcon(icon);  
             }
-            if(index==3){
+            if(id.compareToIgnoreCase("Goomba")==0){
                 jTextField1.setText("Goomba");
                 jTextField2.setText("/Imagenes/goomba.jpg");
                 URL url = this.getClass().getResource(jTextField2.getText());  
                 ImageIcon icon = new ImageIcon(url);  
                 LabelImagen.setIcon(icon);  
             }
-            if(index==4){
+            if(id.compareToIgnoreCase("Koopa")==0){
                 jTextField1.setText("Koopa");
                 jTextField2.setText("/Imagenes/koopa.jpg");
                 URL url = this.getClass().getResource(jTextField2.getText());  
                 ImageIcon icon = new ImageIcon(url);  
                 LabelImagen.setIcon(icon);  
             }
-            if(index==5){
+            if(id.compareToIgnoreCase("Ficha")==0){
                 jTextField1.setText("Ficha");
                 jTextField2.setText("/Imagenes/ficha.jpg");
                 URL url = this.getClass().getResource(jTextField2.getText());  
                 ImageIcon icon = new ImageIcon(url);  
                 LabelImagen.setIcon(icon);  
             }
-            if(index==6){
+            if(id.compareToIgnoreCase("Hongo")==0){
                 jTextField1.setText("Hongo");
                 jTextField2.setText("/Imagenes/hongo.jpg");
                 URL url = this.getClass().getResource(jTextField2.getText());  
@@ -136,6 +146,9 @@ public class Principal extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         LabelImagen = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFocusTraversalPolicyProvider(true);
@@ -148,6 +161,17 @@ public class Principal extends javax.swing.JFrame {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Implementar como PILA");
+
+        jButton3.setText("Implementar como COLA");
+
+        jButton4.setText("Pantalla Edicion");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
             }
         });
 
@@ -172,8 +196,16 @@ public class Principal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(46, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(96, 96, 96))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,32 +221,92 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(LabelImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(390, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(86, 86, 86))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      
-        if(Nombres.getSelectedValue().toString().compareToIgnoreCase("Mario Bros")==0){
-            elementos.remove(Nombres.getSelectedIndex());
-        }
-        if(Nombres.getSelectedValue().toString().compareToIgnoreCase("Castillo Final")==0){
-            elementos.remove(Nombres.getSelectedIndex());
-        }
-        
-       String nombre=jTextField1.getText();
+      String id=Nombres.getSelectedValue().toString();
+      String nombre=jTextField1.getText();
        String path=jTextField2.getText();
+       Personajes a=new Personajes();
+        if(id.compareToIgnoreCase("Mario Bros")==0){
+            a.SetNombre(nombre);
+            a.SetPath(path);
+            a.SetTipo(1);
+            listadoble.insertar(a);
+            elementos.remove(Nombres.getSelectedIndex());
+        }
+        if(id.compareToIgnoreCase("Castillo Final")==0){
+            a.SetNombre(nombre);
+            a.SetPath(path);
+            a.SetTipo(2);
+            listadoble.insertar(a);
+            elementos.remove(Nombres.getSelectedIndex());
+        }
+        if(id.compareToIgnoreCase("Suelo")==0){
+            a.SetNombre(nombre);
+            a.SetPath(path);
+            a.SetTipo(3);
+            listadoble.insertar(a);
+        }
+        if(id.compareToIgnoreCase("Pared")==0){
+            a.SetNombre(nombre);
+            a.SetPath(path);
+            a.SetTipo(4);
+            listadoble.insertar(a);
+        }
+        if(id.compareToIgnoreCase("Goomba")==0){
+            a.SetNombre(nombre);
+            a.SetPath(path);
+            a.SetTipo(5);
+            listadoble.insertar(a);
+        }
+        if(id.compareToIgnoreCase("Koopa")==0){
+            a.SetNombre(nombre);
+            a.SetPath(path);
+            a.SetTipo(5);
+            listadoble.insertar(a);
+        }
+        if(id.compareToIgnoreCase("Ficha")==0){
+            a.SetNombre(nombre);
+            a.SetPath(path);
+            a.SetTipo(6);
+            listadoble.insertar(a);
+        }
+        if(id.compareToIgnoreCase("Hongo")==0){
+            a.SetNombre(nombre);
+            a.SetPath(path);
+            a.SetTipo(7);
+            listadoble.insertar(a);
+        }/*1 mario
+      2 castillo
+      3 suelo
+      4 pared
+      5 enemigos
+      6 coin
+      7 vida
+    */
+        
     
-       
-       
-       
-       //        ListaDoble b = new ListaDoble();
+//        ListaDoble b = new ListaDoble();
 //        Personajes a;
 //        a=b.BorrarSacarPrimero().dato;
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+         FrameEdicion frame = new FrameEdicion(); 
+        frame.setVisible (true); 
+    }//GEN-LAST:event_jButton4ActionPerformed
 
   
     
@@ -257,6 +349,9 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelImagen;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
