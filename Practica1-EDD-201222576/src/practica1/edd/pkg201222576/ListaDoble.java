@@ -62,8 +62,24 @@ public class ListaDoble {
          ultimo.siguiente=null;
          return aux;
          }
+         
      }
      
+     public void EliminarUltimo(){
+         if(ultimo.anterior==null){
+             primero=null;
+             ultimo=null;
+             nodatos--;
+         }
+         else{
+         Nodo aux=ultimo;
+         ultimo=ultimo.anterior;
+         ultimo.siguiente=null;
+         nodatos--;
+         }
+         
+     }
+   
      
      
      

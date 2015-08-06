@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -93,6 +94,11 @@ public class FrameEdicion extends javax.swing.JFrame {
         });
 
         BtnEliminar.setText("Eliminar Elemento");
+        BtnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEliminarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Nombre:");
 
@@ -180,13 +186,7 @@ public class FrameEdicion extends javax.swing.JFrame {
 
     private void BtnSigElemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSigElemActionPerformed
        
-                jTextField1.setText(Principal.listadoble.primero.dato.nombre);
-                jTextField2.setText(Principal.listadoble.primero.dato.path);
-                jTextField3.setText(""+Principal.listadoble.primero.dato.tipo);
-                URL url = this.getClass().getResource(jTextField2.getText());  
-                ImageIcon icon = new ImageIcon(url);  
-                LabelImag.setIcon(icon); 
-                pivote.insertar(Principal.listadoble.primero.dato);
+               LabelImag.setVisible(true);
                 if(Principal.listadoble.primero==Principal.listadoble.ultimo){
                     verificador=1;
                     jTextField1.setText(Principal.listadoble.primero.dato.nombre);
@@ -198,6 +198,13 @@ public class FrameEdicion extends javax.swing.JFrame {
                 pivote.insertar(Principal.listadoble.primero.dato);
                     Principal.listadoble=pivote;
                 }else{
+                     jTextField1.setText(Principal.listadoble.primero.dato.nombre);
+                jTextField2.setText(Principal.listadoble.primero.dato.path);
+                jTextField3.setText(""+Principal.listadoble.primero.dato.tipo);
+                URL url = this.getClass().getResource(jTextField2.getText());  
+                ImageIcon icon = new ImageIcon(url);  
+                LabelImag.setIcon(icon); 
+                pivote.insertar(Principal.listadoble.primero.dato);
                     verificador=0;
                 Principal.listadoble.primero=Principal.listadoble.primero.siguiente;
                 }
@@ -213,12 +220,40 @@ public class FrameEdicion extends javax.swing.JFrame {
         if(verificador==0){
         Principal.listadoble.primero.anterior.dato.SetNombre(jTextField1.getText());
         Principal.listadoble.primero.anterior.dato.SetPath(jTextField2.getText());
+        JOptionPane.showMessageDialog(this, "Elemento Editado");
         }if(verificador==1){
         Principal.listadoble.ultimo.dato.SetNombre(jTextField1.getText());
         Principal.listadoble.ultimo.dato.SetPath(jTextField2.getText()); 
+        JOptionPane.showMessageDialog(this, "Elemento Editado");
         }
         
     }//GEN-LAST:event_BtnEditarActionPerformed
+
+    private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
+       if(verificador==0){
+           
+           Principal.listadoble.primero.anterior=Principal.listadoble.primero.anterior.anterior;
+           Principal.listadoble.primero.anterior.siguiente=Principal.listadoble.primero;
+           Principal.listadoble.nodatos--;
+           pivote.EliminarUltimo();
+           jTextField1.setText("");
+           jTextField2.setText("");
+           jTextField3.setText("");
+           LabelImag.setVisible(false);
+           JOptionPane.showMessageDialog(this, "Elemento Eliminado");
+        }if(verificador==1){
+            Principal.listadoble.ultimo=Principal.listadoble.ultimo.anterior;
+            Principal.listadoble.ultimo.siguiente=null;
+            Principal.listadoble.nodatos--;
+            jTextField1.setText("");
+            jTextField2.setText("");
+            jTextField3.setText("");
+            LabelImag.setVisible(false);
+            pivote.EliminarUltimo();
+            pivote=new ListaDoble();
+           JOptionPane.showMessageDialog(this, "Elemento Eliminado");
+        }
+    }//GEN-LAST:event_BtnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
