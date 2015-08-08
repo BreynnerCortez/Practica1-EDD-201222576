@@ -22,8 +22,8 @@ public class NodoMatriz extends JLabel{
     NodoMatriz abajo;
     NodoMatriz(Personajes a,int posx, int posy)
     {
-        this.fil = posy; 
         this.col = posx; 
+        this.fil = posy; 
         dato=a;
         siguiente=null;
         anterior=null;

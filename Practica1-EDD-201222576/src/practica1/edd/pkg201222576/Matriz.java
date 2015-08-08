@@ -1,6 +1,7 @@
 
 package practica1.edd.pkg201222576;
 
+import java.awt.Dimension;
 import javax.swing.JLabel;
 
 /**
@@ -139,5 +140,108 @@ public class Matriz {
                     
     }
      
+    public void AgregarUnaFila(Personajes a){
+        int ulfi=ultimacol.fil;
+        int ulcol=ultimacol.col;
+        NodoMatriz pivo = ultimacol;
+        NodoMatriz aux=pivo;
+        NodoMatriz ultimafi=ultimacol;
+        int x=ulcol;
+        int contadorfil=1;
+        while (x>=1) { 
+                    NodoMatriz nuevocol = new NodoMatriz(a, x,ulfi+1); 
+                   if(contadorfil==1){
+                    pivo.arriba = nuevocol; 
+                    pivo.arriba.abajo=pivo;
+                    pivo = pivo.arriba; 
+                    x--;
+                    contadorfil++;
+                   }else{
+                    pivo.anterior=nuevocol;
+                    pivo.anterior.siguiente=pivo;
+                    pivo=pivo.anterior;
+                    aux=aux.anterior;
+                    pivo.abajo=aux;
+                    pivo.abajo.arriba=pivo;
+                    pivo.anterior=null;
+                    x--; 
+                        }
+                    }
+        nofilas++;
+                     ultimacol=ultimafi.arriba;
+                    
+    }
+     
+    public void EliminarUnaColumna(){
+        int ulfi=ultimacol.fil;
+        int ulcol=ultimacol.col;
+        NodoMatriz pivo = ultimacol;
+        NodoMatriz ultimacolumna=ultimacol;
+        int y=ulfi;
+        int contadorcol=1;
+        while (y>=1) { 
+                   if(contadorcol==1){
+                    pivo.anterior.siguiente = null; 
+                    pivo = pivo.anterior; 
+                    y--;
+                    contadorcol++;
+                   }else{
+                    pivo.abajo.siguiente=null;
+                    pivo=pivo.abajo;
+                    y--; 
+                        }
+                    }
+        nocolumnas--;
+                     ultimacol=ultimacolumna.anterior;
+                    
+    }
+    
+    public void EliminarUnaFila(){
+        int ulfi=ultimacol.fil;
+        int ulcol=ultimacol.col;
+        NodoMatriz pivo = ultimacol;
+        NodoMatriz aux=pivo;
+        NodoMatriz ultimafi=ultimacol;
+        int x=ulcol;
+        int contadorfil=1;
+        while (x>=1) { 
+                   if(contadorfil==1){
+                    pivo.abajo.arriba = null; 
+                    pivo = pivo.abajo; 
+                    x--;
+                    contadorfil++;
+                   }else{
+                    pivo.anterior.arriba=null;
+                    pivo=pivo.anterior;
+                    x--; 
+                        }
+                    }
+        nofilas--;
+                     ultimacol=ultimafi.arriba;
+                    
+    }
+    
+    public void RefrescarTablero(){
+        EdicionTablero tablero= new EdicionTablero();
+       int x=1;
+       int y=1;
+       int finalx=ultimacol.fil;
+       int finaly=ultimacol.col;
+       NodoMatriz pivo=primerafila;
+       while(y<=finaly){
+           while(x<=finalx){
+               tablero.GraficarLabel(pivo, pivo.col, pivo.fil);
+               pivo=pivo.siguiente;
+               x++;
+           }
+           pivo=primerafila;
+           pivo=pivo.arriba;          
+           y++;
+       }
+        
+        
+        
+    }
+    
     
 }
