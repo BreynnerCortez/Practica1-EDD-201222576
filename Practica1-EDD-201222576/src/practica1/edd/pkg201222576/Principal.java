@@ -352,8 +352,15 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+       
+       Personajes d= new Personajes();
+       d.SetNombre("vacio");
+       d.SetPath("/Imagnes/vacio.jpg");
+       d.SetTipo(0);
        Matriz mat=new Matriz();
-       mat.IniciarMatriz2x4(null, 2, 4);
+       mat.IniciarMatriz2x4(d, 2, 4);
+       mat.insertar(d, 3, 2);
+       mat.AgregarUnaColumna(d);
     }//GEN-LAST:event_jButton5ActionPerformed
 
   
