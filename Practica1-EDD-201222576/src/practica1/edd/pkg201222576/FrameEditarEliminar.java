@@ -238,8 +238,6 @@ public class FrameEditarEliminar extends javax.swing.JFrame {
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
        if(apuntador==true){
-        
-           
         aux=aux.anterior;
         if(aux.anterior==null){
             aux.siguiente.anterior=null;

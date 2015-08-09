@@ -27,6 +27,7 @@ public class EdicionTablero extends javax.swing.JFrame {
     public int posactualx=0;
     public int posactualy=0;
     public static Matriz mat=new Matriz();
+    public static Matriz Matrizpivote=new Matriz();
     
     public String a;
     public int POSX=0;
@@ -44,7 +45,9 @@ public class EdicionTablero extends javax.swing.JFrame {
         getLayeredPane().add(fondo, JLayeredPane.FRAME_CONTENT_LAYER);
         fondo.setBounds(0, 0, uno.getIconWidth(), uno.getIconHeight());
         mat=new Matriz();
+        Matrizpivote=new Matriz();
         mat.IniciarMatriz4x2(4,2);
+        Matrizpivote.IniciarMatriz4x2(4, 2);
         jLabel1.setVisible(false);
         GraficarLabel();
         if(Principal.pilaocola==true){
@@ -77,6 +80,7 @@ public class EdicionTablero extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -158,6 +162,13 @@ public class EdicionTablero extends javax.swing.JFrame {
             }
         });
 
+        jButton8.setText("Ver Disponibles");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -188,11 +199,12 @@ public class EdicionTablero extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(1, 1, 1)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel2)
                                         .addComponent(LabelImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jButton7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(jButton7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(16, 16, 16))))
         );
         layout.setVerticalGroup(
@@ -222,6 +234,8 @@ public class EdicionTablero extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43))
         );
@@ -268,13 +282,18 @@ public class EdicionTablero extends javax.swing.JFrame {
         ImageIcon im= new ImageIcon(this.getClass().getResource(pivo.dato.path));
         int col=pivo.col;
         int fila=pivo.fil;
+        int tipo=pivo.dato.tipo;
         pivo=pivo.siguiente;
         JLabel nu=new JLabel(im); 
          nu.addMouseListener(new MouseAdapter() {
          public void mouseClicked(MouseEvent e) {
              POSX=col;
              POSY=fila;
-             System.out.println("Ha echo click en:"+col+","+fila); }});
+             System.out.println("Ha echo click en:"+col+","+fila); 
+             if(tipo!=0){
+                 JOptionPane.showMessageDialog(null, "Posicion seleccionada contiene objeto\nSeleccione otra posicion");
+             }
+         }});
           if(i==1){
                 posactualx=0;
                 }else{
@@ -309,9 +328,13 @@ GraficarLabel();
           Nodo nodouso=Principal.listadoble.PILAsacarPrimero();
           ListaLlenaDeNuevo.insertar(nodouso.dato);
           NodoMatriz a=mat.ModificarNodo(POSX, POSY);
+          NodoMatriz b=Matrizpivote.ModificarNodo(POSX, POSY);
             a.dato.nombre=nodouso.dato.nombre;
             a.dato.path=(nodouso.dato.path);
             a.dato.tipo=nodouso.dato.tipo;
+            b.dato.nombre=nodouso.dato.nombre;
+            b.dato.path=(nodouso.dato.path);
+            b.dato.tipo=nodouso.dato.tipo;
             if(nodouso.siguiente!=null){
                 LabelImagen.setVisible(true);
                 ImageIcon presentacion=new ImageIcon(this.getClass().getResource(Principal.listadoble.primero.dato.path));
@@ -327,9 +350,13 @@ GraficarLabel();
           Nodo nodouso=Principal.listadoble.COLAsacarUltimo();
           ListaLlenaDeNuevo.insertar(nodouso.dato);
            NodoMatriz a=mat.ModificarNodo(POSX, POSY);
+            NodoMatriz b=Matrizpivote.ModificarNodo(POSX, POSY);
             a.dato.nombre=nodouso.dato.nombre;
             a.dato.path=(nodouso.dato.path);
             a.dato.tipo=nodouso.dato.tipo;
+             b.dato.nombre=nodouso.dato.nombre;
+            b.dato.path=(nodouso.dato.path);
+            b.dato.tipo=nodouso.dato.tipo;
             if(nodouso.anterior!=null){
                 LabelImagen.setVisible(true);
             ImageIcon presentacion=new ImageIcon(this.getClass().getResource(Principal.listadoble.ultimo.dato.path));
@@ -343,6 +370,40 @@ GraficarLabel();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+       mat.AgregarUnaFila();
+       Matrizpivote.AgregarUnaFila();
+       GraficarLabel();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+      mat.AgregarUnaColumna();
+      Matrizpivote.AgregarUnaColumna();
+      GraficarLabel();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        mat.EliminarUnaFila();
+        Matrizpivote.EliminarUnaFila();
+        GraficarLabel();
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        Juego nu= new Juego();
+        nu.setVisible(true);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        mat.EliminarUnaColumna();
+        Matrizpivote.EliminarUnaColumna();
+        GraficarLabel();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         int heroes=0;
         int castillofinal=0;
         int suelo=0;
@@ -400,33 +461,7 @@ GraficarLabel();
         JOptionPane.showMessageDialog(null, informacion);
         
         }
-        
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-       mat.AgregarUnaFila();
-       GraficarLabel();
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-      mat.AgregarUnaColumna();
-      GraficarLabel();
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        mat.EliminarUnaFila();
-        GraficarLabel();
-    }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        Juego nu= new Juego();
-        nu.setVisible(true);
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        mat.EliminarUnaColumna();
-        GraficarLabel();
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -474,6 +509,7 @@ GraficarLabel();
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     public static javax.swing.JScrollPane jScrollPane1;
