@@ -24,8 +24,8 @@ import javax.swing.Timer;
 public  class Juego extends javax.swing.JFrame {
 
     public static Matriz matrizpivote=EdicionTablero.mat;;
-    public Timer t,td;
-    public ActionListener ac,ac2;
+    public Timer t,td,tt,tc;
+    public ActionListener ac,ac2,ac3,ac4;
     int contadormovene=0;
     int segundos=0;
     int minutos=0;
@@ -33,6 +33,7 @@ public  class Juego extends javax.swing.JFrame {
     int POSENY=0;
     int vidas=1;
     int bonus=0;
+    int caida=1;
    
     public Juego() {
         initComponents();
@@ -42,6 +43,14 @@ public  class Juego extends javax.swing.JFrame {
         labelvidasdos.setVisible(false);
         labelbonus.setVisible(false);
         labelbonusdos.setVisible(false);
+        ac=new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+              MovimientosEnemigos();
+                Graficar();
+                }
+        };
+        t=new Timer(1100, ac);
         ac2=new ActionListener() {
 
             @Override
@@ -50,6 +59,7 @@ public  class Juego extends javax.swing.JFrame {
                 if(segundos>59){
                     minutos++;
                     segundos=0;
+                   
                 }
                 if(segundos<10){
                     LabelTiempo.setText("0"+minutos+":0"+segundos);
@@ -61,16 +71,17 @@ public  class Juego extends javax.swing.JFrame {
             }
         };
          td=new Timer(1000, ac2);
-        ac=new ActionListener() {
+        
+        ac3=new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              MovimientosEnemigos();
-                Graficar();
+             GravedadAbajo();
                 }
         };
-        t=new Timer(1100, ac);
-                
+        tt=new Timer(800, ac3);
+
     }
+    
     public void Graficar(){
         
          int posactualx=0;
@@ -119,9 +130,30 @@ public  class Juego extends javax.swing.JFrame {
      }
         
     }
+    
+    public void GravedadAbajo(){
+        if(caida<2){
+        NodoMatriz aux= BuscarMario();
+                 String nombrepiv=aux.abajo.dato.nombre;
+                 String pathpiv=aux.abajo.dato.path;
+                 int tipopiv=aux.abajo.dato.tipo;
+                 if(tipopiv!=4){
+                 aux.abajo.dato.nombre=aux.dato.nombre;
+                 aux.abajo.dato.path=aux.dato.path;
+                 aux.abajo.dato.tipo=aux.dato.tipo;
+                 aux.dato.nombre=nombrepiv;
+                 aux.dato.path=pathpiv;
+                 aux.dato.tipo=tipopiv;
+                 Graficar();
+                 }
+        }else{
+            tt.stop();
+        }
+                 caida++;
+        
+    }
 
-    
-    
+
     public void MovimientosEnemigos(){
         if ( contadormovene>=6){
             contadormovene=0;
@@ -199,10 +231,29 @@ public  class Juego extends javax.swing.JFrame {
       
         }
             
-     
+      public NodoMatriz BuscarMario(){
+
+        NodoMatriz pivofila=matrizpivote.primerafila;
+        NodoMatriz pivo=matrizpivote.primerafila;
+        for(int j=1;j<=matrizpivote.nofilas;j++){
+           for(int i=1;i<=matrizpivote.nocolumnas;i++){
+
+                int col=pivo.col;
+                int fila=pivo.fil;
+                if(pivo.dato.tipo==1)
+                {
+                    return pivo;
+                }
+                pivo=pivo.siguiente;
         
-    
-  
+               }
+            pivo=pivofila.arriba;
+            pivofila=pivofila.arriba;
+            
+        }
+      return null;
+        }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -339,15 +390,57 @@ public  class Juego extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        NodoMatriz aux=BuscarMario();
+        String nombrepiv="";
+        String pathpiv="";
+        int tipopiv=0;
         switch(evt.getKeyCode()){
 
-            case KeyEvent.VK_LEFT:
-            System.out.println("Ha presionado izquierda y en la posicion: "+POSENX+","+POSENY);
-            break;
+           
             case KeyEvent.VK_RIGHT:
+                 nombrepiv=aux.siguiente.dato.nombre;
+                 pathpiv=aux.siguiente.dato.path;
+                 tipopiv=aux.siguiente.dato.tipo;
+                 if(tipopiv!=4){
+                 aux.siguiente.dato.nombre=aux.dato.nombre;
+                 aux.siguiente.dato.path=aux.dato.path;
+                 aux.siguiente.dato.tipo=aux.dato.tipo;
+                 aux.dato.nombre=nombrepiv;
+                 aux.dato.path=pathpiv;
+                 aux.dato.tipo=tipopiv;
+                 Graficar();
+                 }
             System.out.println("Ha presionado derecha y en la posicion: "+POSENX+","+POSENY);
             break;
+             case KeyEvent.VK_LEFT:
+                 nombrepiv=aux.anterior.dato.nombre;
+                 pathpiv=aux.anterior.dato.path;
+                 tipopiv=aux.anterior.dato.tipo;
+                 if(tipopiv!=4){
+                 aux.anterior.dato.nombre=aux.dato.nombre;
+                 aux.anterior.dato.path=aux.dato.path;
+                 aux.anterior.dato.tipo=aux.dato.tipo;
+                 aux.dato.nombre=nombrepiv;
+                 aux.dato.path=pathpiv;
+                 aux.dato.tipo=tipopiv;
+                 Graficar();
+                 }
+                 
+            System.out.println("Ha presionado izquierda y en la posicion: "+POSENX+","+POSENY);
+            break;
             case KeyEvent.VK_UP:
+                nombrepiv=aux.arriba.arriba.dato.nombre;
+                 pathpiv=aux.arriba.arriba.dato.path;
+                 tipopiv=aux.arriba.arriba.dato.tipo;
+                 if(tipopiv!=4){
+                 aux.arriba.arriba.dato.nombre=aux.dato.nombre;
+                 aux.arriba.arriba.dato.path=aux.dato.path;
+                 aux.arriba.arriba.dato.tipo=aux.dato.tipo;
+                 aux.dato.nombre=nombrepiv;
+                 aux.dato.path=pathpiv;
+                 aux.dato.tipo=tipopiv;
+                 tt.start();
+                 }
             System.out.println("Ha presionado arriba y en la posicion: "+POSENX+","+POSENY);
             break;
             case KeyEvent.VK_DOWN:
@@ -391,9 +484,11 @@ public  class Juego extends javax.swing.JFrame {
            Graficar();
            vidas=1;
            bonus=0;
+           LabelTiempo.setText("Tiempo:");
            labelmensaje.setVisible(false);
            labelvidas.setVisible(false);
         labelvidasdos.setVisible(false);
+        MenuInicioPausa.setText("Inicio");
         labelbonus.setVisible(false);
         labelbonusdos.setVisible(false);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
