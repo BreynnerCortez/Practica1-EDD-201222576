@@ -289,19 +289,19 @@ public class Principal extends javax.swing.JFrame {
         if(id.compareToIgnoreCase("Koopa")==0){
             a.SetNombre(nombre);
             a.SetPath(path);
-            a.SetTipo(5);
+            a.SetTipo(6);
             listadoble.insertar(a);
         }
         if(id.compareToIgnoreCase("Ficha")==0){
             a.SetNombre(nombre);
             a.SetPath(path);
-            a.SetTipo(6);
+            a.SetTipo(7);
             listadoble.insertar(a);
         }
         if(id.compareToIgnoreCase("Hongo")==0){
             a.SetNombre(nombre);
             a.SetPath(path);
-            a.SetTipo(7);
+            a.SetTipo(8);
             listadoble.insertar(a);
         }/*1 mario
       2 castillo

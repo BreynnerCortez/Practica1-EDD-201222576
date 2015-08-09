@@ -240,7 +240,7 @@ public class Matriz {
                         }
                     }
         nofilas--;
-                     ultimacol=ultimafi.arriba;
+                     ultimacol=ultimafi.abajo;
                     
     }
     
