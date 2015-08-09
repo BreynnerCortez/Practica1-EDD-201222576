@@ -31,12 +31,17 @@ public  class Juego extends javax.swing.JFrame {
     int minutos=0;
     int POSENX=0;
     int POSENY=0;
+    int vidas=1;
+    int bonus=0;
    
     public Juego() {
         initComponents();
         Graficar();
         labelmensaje.setVisible(false);
-
+        labelvidas.setVisible(false);
+        labelvidasdos.setVisible(false);
+        labelbonus.setVisible(false);
+        labelbonusdos.setVisible(false);
         ac2=new ActionListener() {
 
             @Override
@@ -59,8 +64,8 @@ public  class Juego extends javax.swing.JFrame {
         ac=new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              // MovimientosEnemigos();
-                //Graficar();
+              MovimientosEnemigos();
+                Graficar();
                 }
         };
         t=new Timer(1100, ac);
@@ -207,6 +212,10 @@ public  class Juego extends javax.swing.JFrame {
         PanelJuego = new javax.swing.JPanel();
         labelmensaje = new javax.swing.JLabel();
         LabelTiempo = new javax.swing.JLabel();
+        labelvidasdos = new javax.swing.JLabel();
+        labelbonus = new javax.swing.JLabel();
+        labelvidas = new javax.swing.JLabel();
+        labelbonusdos = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -240,6 +249,18 @@ public  class Juego extends javax.swing.JFrame {
 
         LabelTiempo.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 24)); // NOI18N
         LabelTiempo.setText("Tiempo:");
+
+        labelvidasdos.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 24)); // NOI18N
+        labelvidasdos.setText("0");
+
+        labelbonus.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 24)); // NOI18N
+        labelbonus.setText("Bonus: ");
+
+        labelvidas.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 24)); // NOI18N
+        labelvidas.setText("Vidas: ");
+
+        labelbonusdos.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 24)); // NOI18N
+        labelbonusdos.setText("0");
 
         jMenu1.setText("JUEGO");
 
@@ -287,7 +308,15 @@ public  class Juego extends javax.swing.JFrame {
                         .addComponent(LabelTiempo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(labelmensaje)
-                        .addGap(407, 407, 407)))
+                        .addGap(107, 107, 107)
+                        .addComponent(labelvidas)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelvidasdos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(labelbonus)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelbonusdos)
+                        .addGap(45, 45, 45)))
                 .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
@@ -296,7 +325,11 @@ public  class Juego extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LabelTiempo)
-                    .addComponent(labelmensaje))
+                    .addComponent(labelmensaje)
+                    .addComponent(labelvidasdos)
+                    .addComponent(labelbonus)
+                    .addComponent(labelvidas)
+                    .addComponent(labelbonusdos))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
                 .addContainerGap())
@@ -334,11 +367,17 @@ public  class Juego extends javax.swing.JFrame {
            td.start();
            MenuInicioPausa.setText("Pausa");
            labelmensaje.setVisible(true);
+           labelvidas.setVisible(true);
+           labelvidasdos.setText(""+vidas);
+        labelvidasdos.setVisible(true);
+        labelbonus.setVisible(true);
+        labelbonusdos.setText(""+bonus);
+        labelbonusdos.setVisible(true);
        }else{
            t.stop();
            td.stop();
            MenuInicioPausa.setText("Inicio");
-           labelmensaje.setVisible(false);
+           labelmensaje.setText("Juego Pausado!");
        }
     }//GEN-LAST:event_MenuInicioPausaActionPerformed
 
@@ -350,6 +389,13 @@ public  class Juego extends javax.swing.JFrame {
            t.stop();
            td.stop();
            Graficar();
+           vidas=1;
+           bonus=0;
+           labelmensaje.setVisible(false);
+           labelvidas.setVisible(false);
+        labelvidasdos.setVisible(false);
+        labelbonus.setVisible(false);
+        labelbonusdos.setVisible(false);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     /**
@@ -397,6 +443,10 @@ public  class Juego extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelbonus;
+    private javax.swing.JLabel labelbonusdos;
     private javax.swing.JLabel labelmensaje;
+    private javax.swing.JLabel labelvidas;
+    private javax.swing.JLabel labelvidasdos;
     // End of variables declaration//GEN-END:variables
 }
