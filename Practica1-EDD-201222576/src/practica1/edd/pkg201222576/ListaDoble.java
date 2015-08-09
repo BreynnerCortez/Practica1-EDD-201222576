@@ -50,7 +50,6 @@ public class ListaDoble {
              Nodo aux=primero;
              primero=null;
              ultimo=null;
-             JOptionPane.showMessageDialog(null,"Lista Vacia");
              return aux;
          }else{
          Nodo aux=primero;
@@ -64,7 +63,6 @@ public class ListaDoble {
              Nodo aux=ultimo;
              primero=null;
              ultimo=null;
-             JOptionPane.showMessageDialog(null,"Lista Vacia");
              return aux;
          }
          else{

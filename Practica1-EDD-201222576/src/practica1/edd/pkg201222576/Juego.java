@@ -23,6 +23,7 @@ public  class Juego extends javax.swing.JFrame {
     public static Matriz mat=EdicionTablero.mat;
     public Timer t;
     public ActionListener ac;
+    int contadormovene=0;
    
     public Juego() {
         initComponents();
@@ -34,7 +35,7 @@ public  class Juego extends javax.swing.JFrame {
                 Graficar();
                 }
         };
-        t=new Timer(2000, ac);
+        t=new Timer(1000, ac);
                 
     }
     public void Graficar(){
@@ -86,30 +87,85 @@ public  class Juego extends javax.swing.JFrame {
     
     
     public void MovimientosEnemigos(){
-        
+        if ( contadormovene>=6){
+            contadormovene=0;
+        }
+        contadormovene++;
         NodoMatriz pivofila=mat.primerafila;
-        NodoMatriz pivo=mat.primerafila;
+        NodoMatriz pivo=mat.primerafila;   
+        if(contadormovene<=3){
      for(int j=1;j<=mat.nofilas;j++){
             for(int i=1;i<=mat.nocolumnas;i++){
+                if(pivo.anterior!=null){
                 if(pivo.dato.tipo==5||pivo.dato.tipo==6){
                  String nombrepiv=pivo.anterior.dato.nombre;
                  String pathpiv=pivo.anterior.dato.path;
                  int tipopiv=pivo.anterior.dato.tipo;
+                 if(tipopiv!=4){
                  pivo.anterior.dato.nombre=pivo.dato.nombre;
                  pivo.anterior.dato.path=pivo.dato.path;
                  pivo.anterior.dato.tipo=pivo.dato.tipo;
                  pivo.dato.nombre=nombrepiv;
                  pivo.dato.path=pathpiv;
-                 pivo.dato.tipo=tipopiv;//Falta hacer validaciones
+                 pivo.dato.tipo=tipopiv;}else{
+                     contadormovene++;
+                 }
+                 
+                        }               
                 }    
                 pivo=pivo.siguiente;
             }
+            if(pivofila!=null){
             pivo=pivofila.arriba;
             pivofila=pivofila.arriba;
+            }
+                }
+                }
+     
+      if (contadormovene>3){
+          Boolean entro=false;
+          for(int j=1;j<=mat.nofilas;j++){
+            for(int i=1;i<=mat.nocolumnas;i++){
+                if(pivo!=null&&pivo.siguiente!=null){
+                if(pivo.dato.tipo==5||pivo.dato.tipo==6){
+                 String nombrepiv=pivo.siguiente.dato.nombre;
+                 String pathpiv=pivo.siguiente.dato.path;
+                 int tipopiv=pivo.siguiente.dato.tipo;
+                 pivo.siguiente.dato.nombre=pivo.dato.nombre;
+                 pivo.siguiente.dato.path=pivo.dato.path;
+                 pivo.siguiente.dato.tipo=pivo.dato.tipo;
+                 pivo.dato.nombre=nombrepiv;
+                 pivo.dato.path=pathpiv;
+                 pivo.dato.tipo=tipopiv;
+                 entro=true;
+                       }
+                if(entro==false){
+                pivo=pivo.siguiente; 
+                }if(entro==true){
+                    if(pivo.siguiente!=null){
+                    pivo=pivo.siguiente.siguiente;
+                            }
+                    entro=false;
+                }    
+                
+               }
+                
+            }
+            if(pivofila!=null){
+            pivo=pivofila.arriba;
+            pivofila=pivofila.arriba;
+            }
+                }
+                
+                    }
+      
+      
+      
+        }
             
-     }
+     
         
-    }
+    
   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -117,8 +173,8 @@ public  class Juego extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         PanelJuego = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        btn_iniciopausa = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -135,18 +191,19 @@ public  class Juego extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(PanelJuego);
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         jButton2.setBackground(new java.awt.Color(102, 153, 255));
-        jButton2.setText("INICIO");
+        jButton2.setText("Refrescar Tablero");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        btn_iniciopausa.setBackground(new java.awt.Color(102, 153, 255));
+        btn_iniciopausa.setText("INICIO");
+        btn_iniciopausa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_iniciopausaActionPerformed(evt);
             }
         });
 
@@ -159,19 +216,19 @@ public  class Juego extends javax.swing.JFrame {
                 .addComponent(jScrollPane1)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(491, 491, 491)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2)
-                .addGap(43, 43, 43))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btn_iniciopausa)
+                .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_iniciopausa, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1)
                 .addContainerGap())
@@ -180,17 +237,19 @@ public  class Juego extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(!t.isRunning()){
-            t.start();
-        }
-        
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
        Graficar();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btn_iniciopausaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_iniciopausaActionPerformed
+ if(!t.isRunning()){
+            t.start();
+            btn_iniciopausa.setText("PAUSA");
+        }else{
+     t.stop();
+     btn_iniciopausa.setText("INICIO");
+ }
+    }//GEN-LAST:event_btn_iniciopausaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -229,7 +288,7 @@ public  class Juego extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel PanelJuego;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btn_iniciopausa;
     private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

@@ -24,8 +24,9 @@ public class FrameEditarEliminar extends javax.swing.JFrame {
      * Creates new form FrameEditarEliminar
      */
     int contador=0;
-    int verificador=0;
+     Boolean apuntador=false;
     ListaDoble pivote= new ListaDoble();
+    Nodo aux=Principal.listadoble.primero;
     
     public FrameEditarEliminar() {
         initComponents();
@@ -189,29 +190,27 @@ public class FrameEditarEliminar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnSigElemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSigElemActionPerformed
-       
-               LabelImag.setVisible(true);
-                if(Principal.listadoble.primero==Principal.listadoble.ultimo){
-                    verificador=1;
-                    jTextField1.setText(Principal.listadoble.primero.dato.nombre);
-                jTextField2.setText(Principal.listadoble.primero.dato.path);
-                jTextField3.setText(""+Principal.listadoble.primero.dato.tipo);
+         LabelImag.setVisible(true);
+            if(aux.siguiente!=null){
+                jTextField1.setText(aux.dato.nombre);
+                jTextField2.setText(aux.dato.path);
+                jTextField3.setText(""+aux.dato.tipo);
                 URL urld = this.getClass().getResource(jTextField2.getText());  
                 ImageIcon icond = new ImageIcon(urld);  
                 LabelImag.setIcon(icond); 
-                pivote.insertar(Principal.listadoble.primero.dato);
-                    Principal.listadoble=pivote;
-                }else{
-                     jTextField1.setText(Principal.listadoble.primero.dato.nombre);
-                jTextField2.setText(Principal.listadoble.primero.dato.path);
-                jTextField3.setText(""+Principal.listadoble.primero.dato.tipo);
-                URL url = this.getClass().getResource(jTextField2.getText());  
-                ImageIcon icon = new ImageIcon(url);  
-                LabelImag.setIcon(icon); 
-                pivote.insertar(Principal.listadoble.primero.dato);
-                    verificador=0;
-                Principal.listadoble.primero=Principal.listadoble.primero.siguiente;
-                }
+                aux=aux.siguiente;
+                apuntador=true;
+            }else{
+                
+                jTextField1.setText(aux.dato.nombre);
+                jTextField2.setText(aux.dato.path);
+                jTextField3.setText(""+aux.dato.tipo);
+                URL urld = this.getClass().getResource(jTextField2.getText());  
+                ImageIcon icond = new ImageIcon(urld);  
+                LabelImag.setIcon(icond); 
+                aux=Principal.listadoble.primero;
+                apuntador=false;
+            }
             
             
             
@@ -220,43 +219,67 @@ public class FrameEditarEliminar extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnSigElemActionPerformed
 
     private void BtnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEditarActionPerformed
-      
-        if(verificador==0){
-        Principal.listadoble.primero.anterior.dato.SetNombre(jTextField1.getText());
-        Principal.listadoble.primero.anterior.dato.SetPath(jTextField2.getText());
+       
+        if(apuntador==true){
+        aux=aux.anterior;
+        aux.dato.SetNombre(jTextField1.getText());
+        aux.dato.SetPath(jTextField2.getText());
         JOptionPane.showMessageDialog(this, "Elemento Editado");
-        }if(verificador==1){
-        Principal.listadoble.ultimo.dato.SetNombre(jTextField1.getText());
-        Principal.listadoble.ultimo.dato.SetPath(jTextField2.getText()); 
+        aux=aux.siguiente;
+        }else{
+            aux=Principal.listadoble.ultimo;
+           aux.dato.SetNombre(jTextField1.getText());
+        aux.dato.SetPath(jTextField2.getText());
+        aux=Principal.listadoble.primero;
         JOptionPane.showMessageDialog(this, "Elemento Editado");
         }
         
     }//GEN-LAST:event_BtnEditarActionPerformed
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
-       if(verificador==0){
+       if(apuntador==true){
+        
            
-           Principal.listadoble.primero.anterior=Principal.listadoble.primero.anterior.anterior;
-           Principal.listadoble.primero.anterior.siguiente=Principal.listadoble.primero;
-           Principal.listadoble.nodatos--;
-           pivote.EliminarUltimo();
+        aux=aux.anterior;
+        if(aux.anterior==null){
+            aux.siguiente.anterior=null;
+            Principal.listadoble.primero=aux.siguiente;
+            Principal.listadoble.nodatos--;
+             jTextField1.setText("");
+           jTextField2.setText("");
+           jTextField3.setText("");
+           LabelImag.setVisible(false);
+           JOptionPane.showMessageDialog(this, "Elemento Eliminado");
+          aux=aux.siguiente;
+        }else{
+        aux.anterior.siguiente=aux.siguiente;
+        aux.siguiente.anterior=aux.anterior;
+        Principal.listadoble.nodatos--;
            jTextField1.setText("");
            jTextField2.setText("");
            jTextField3.setText("");
            LabelImag.setVisible(false);
            JOptionPane.showMessageDialog(this, "Elemento Eliminado");
-        }if(verificador==1){
-            Principal.listadoble.ultimo=Principal.listadoble.ultimo.anterior;
-            Principal.listadoble.ultimo.siguiente=null;
+        aux=aux.siguiente;
+        }
+        }else{
+            aux=Principal.listadoble.ultimo;
+            aux.anterior.siguiente=null;  
+            Principal.listadoble.ultimo=aux.anterior;
             Principal.listadoble.nodatos--;
             jTextField1.setText("");
             jTextField2.setText("");
             jTextField3.setText("");
             LabelImag.setVisible(false);
-            pivote.EliminarUltimo();
-            pivote=new ListaDoble();
            JOptionPane.showMessageDialog(this, "Elemento Eliminado");
+           aux=Principal.listadoble.primero;
         }
+        
+        
+        
+        
+        
+     
     }//GEN-LAST:event_BtnEliminarActionPerformed
 
     private void BtnConfiJuegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnConfiJuegoActionPerformed

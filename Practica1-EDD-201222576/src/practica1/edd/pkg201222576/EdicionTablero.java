@@ -319,6 +319,7 @@ GraficarLabel();
                  }
             else{
                 LabelImagen.setVisible(false);
+                JOptionPane.showMessageDialog(null,"Lista Vacia");
             }
             }
             
@@ -335,6 +336,7 @@ GraficarLabel();
          LabelImagen.setIcon(presentacion);
             }else{
                 LabelImagen.setVisible(false);
+             JOptionPane.showMessageDialog(null,"Lista Vacia");
             }
       }
       GraficarLabel();
