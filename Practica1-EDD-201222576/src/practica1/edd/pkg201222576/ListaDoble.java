@@ -2,6 +2,7 @@
 package practica1.edd.pkg201222576;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -45,16 +46,26 @@ public class ListaDoble {
     }
     
      public Nodo PILAsacarPrimero(){
+         if(primero.siguiente==null){
+             Nodo aux=primero;
+             primero=null;
+             ultimo=null;
+             JOptionPane.showMessageDialog(null,"Lista Vacia");
+             return aux;
+         }else{
          Nodo aux=primero;
          primero=primero.siguiente;
          primero.anterior=null;
          return aux;
+         }
      }
      public Nodo COLAsacarUltimo(){
          if(ultimo.anterior==null){
+             Nodo aux=ultimo;
              primero=null;
              ultimo=null;
-             return ultimo;
+             JOptionPane.showMessageDialog(null,"Lista Vacia");
+             return aux;
          }
          else{
          Nodo aux=ultimo;

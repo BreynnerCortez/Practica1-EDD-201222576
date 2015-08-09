@@ -31,7 +31,7 @@ public class Matriz {
      
      
      
-     public void IniciarMatriz2x4(Personajes a, int fi, int co) { 
+     public void IniciarMatriz4x2( int co,int fi) { 
           
             int y = 1; 
             int x=1;
@@ -39,7 +39,11 @@ public class Matriz {
             NodoMatriz aux=q;
             //Filas
             while (y <= fi) { 
-            NodoMatriz nuevo = new NodoMatriz(a,1,y); 
+                Personajes b= new Personajes();
+                b.SetNombre("nulo");
+                b.SetPath("/Imagenes/null.png");
+                b.SetTipo(0);
+            NodoMatriz nuevo = new NodoMatriz(b,1,y); 
             if(y==1){
                 q=nuevo;
             primerafila=q;
@@ -48,7 +52,11 @@ public class Matriz {
             x=2;
                     //Columnas
                     while (x <= co) { 
-                    NodoMatriz nuevocol = new NodoMatriz(a, x,y); 
+                        Personajes c=new Personajes();
+                        c.SetNombre("nulo");
+                        c.SetPath("/Imagenes/null.png");
+                        c.SetTipo(0);
+                    NodoMatriz nuevocol = new NodoMatriz(c, x,y); 
                     q.siguiente = nuevocol; 
                     q.siguiente.anterior=q;
                     q = q.siguiente; 
@@ -61,6 +69,7 @@ public class Matriz {
                     
             }else{
                 x=2;
+               
             q.arriba = nuevo;  
             q.arriba.abajo=q;
             aux=q;
@@ -71,7 +80,11 @@ public class Matriz {
             nofilas++;
                     //Columnas
                     while (x <= co) { 
-                    NodoMatriz nuevocol = new NodoMatriz(a, x,y); 
+                        Personajes d= new Personajes();
+                        d.SetNombre("nulo");
+                        d.SetPath("/Imagenes/null.png");
+                        d.SetTipo(0);
+                    NodoMatriz nuevocol = new NodoMatriz(d, x,y); 
                     q.siguiente = nuevocol; 
                     q.siguiente.anterior=q;
                     q = q.siguiente; 
@@ -80,12 +93,14 @@ public class Matriz {
                     q.abajo.arriba=q;
                     q.siguiente=null;
                     x++;  
+                    if(co>nocolumnas){
                     nocolumnas++;
+                    }
                     }
                    
                     y++; 
                      ultimacol=q;
-                    q=primerafila;
+                      q=primerafila;
                 }
             
             } 
@@ -94,9 +109,9 @@ public class Matriz {
    } 
     
      
-  public NodoMatriz insertar(Personajes a,int posx, int posy) { 
+  public NodoMatriz ModificarNodo(int posx, int posy) { 
         NodoMatriz aux = primeracol;//Se crea el nodo auxiliar (aux) y se le da el valor de la siguiente columna del nomo m 
-        while (aux.col != posx) {//Mientras que la columna del nodo aux sea diferente a la columna donde vamos a insertar el nuevo valor, recorre el nodo aux hasta dar con la columna desea para insertar el valor 
+        while (aux.col != posx) {//Mientras que la columna del nodo aux sea diferente a la columna donde vamos a ModificarNodo el nuevo valor, recorre el nodo aux hasta dar con la columna desea para ModificarNodo el valor 
         aux = aux.siguiente; 
         } 
         NodoMatriz aux1 = aux; 
@@ -104,11 +119,11 @@ public class Matriz {
         aux1 = aux1.arriba; 
         aux = aux1; 
         } 
-        aux.dato.SetNombre("Apareci");
-        return aux;
+       return aux;
+       
    }
      
-    public void AgregarUnaColumna(Personajes a){
+    public void AgregarUnaColumna(){
         int ulfi=ultimacol.fil;
         int ulcol=ultimacol.col;
         NodoMatriz pivo = ultimacol;
@@ -117,7 +132,11 @@ public class Matriz {
         int y=ulfi;
         int contadorcol=1;
         while (y>=1) { 
-                    NodoMatriz nuevocol = new NodoMatriz(a, ulcol+1,y); 
+                Personajes b=new Personajes();
+                b.SetNombre("nulo");
+                b.SetPath("/Imagenes/null.png");
+                b.SetTipo(0);
+                    NodoMatriz nuevocol = new NodoMatriz(b, ulcol+1,y); 
                    if(contadorcol==1){
                     pivo.siguiente = nuevocol; 
                     pivo.siguiente.anterior=pivo;
@@ -140,7 +159,7 @@ public class Matriz {
                     
     }
      
-    public void AgregarUnaFila(Personajes a){
+    public void AgregarUnaFila(){
         int ulfi=ultimacol.fil;
         int ulcol=ultimacol.col;
         NodoMatriz pivo = ultimacol;
@@ -149,7 +168,11 @@ public class Matriz {
         int x=ulcol;
         int contadorfil=1;
         while (x>=1) { 
-                    NodoMatriz nuevocol = new NodoMatriz(a, x,ulfi+1); 
+                    Personajes b= new Personajes();
+                    b.SetNombre("nulo");
+                    b.SetPath("/Imagenes/null.png");
+                    b.SetTipo(0);
+                    NodoMatriz nuevocol = new NodoMatriz(b, x,ulfi+1); 
                    if(contadorfil==1){
                     pivo.arriba = nuevocol; 
                     pivo.arriba.abajo=pivo;
@@ -223,22 +246,23 @@ public class Matriz {
     
     public void RefrescarTablero(){
         EdicionTablero tablero= new EdicionTablero();
-       int x=1;
-       int y=1;
-       int finalx=ultimacol.fil;
-       int finaly=ultimacol.col;
+//       int x=1;
+//       int y=1;
+//       int finalx=ultimacol.col;
+       int finaly=ultimacol.fil;
        NodoMatriz pivo=primerafila;
-       while(y<=finaly){
-           while(x<=finalx){
-               tablero.GraficarLabel(pivo, pivo.col, pivo.fil);
-               pivo=pivo.siguiente;
-               x++;
-           }
-           pivo=primerafila;
-           pivo=pivo.arriba;          
-           y++;
-       }
-        
+//       while(y<=finaly){
+//           while(x<=finalx){
+//               
+//               pivo=pivo.siguiente;
+//               x++;
+//           }
+//           pivo=primerafila;
+//           pivo=pivo.arriba;          
+//           y++;
+//           x=1;
+//       }
+//       tablero.GraficarLabel(pivo, pivo.col, pivo.fil);
         
         
     }
