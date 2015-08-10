@@ -74,6 +74,10 @@ public class FrameEditarEliminar extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         BtnConfiJuego = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(737, 543));
@@ -116,6 +120,25 @@ public class FrameEditarEliminar extends javax.swing.JFrame {
         });
 
         jScrollPane1.setEnabled(false);
+
+        jMenu1.setText("REPORTES");
+
+        jMenuItem1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        jMenuItem1.setText("Lista Doble Enlazada");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        jMenuItem2.setText("Matriz Ortogonal");
+        jMenu1.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -174,7 +197,7 @@ public class FrameEditarEliminar extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
-                        .addGap(0, 1, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -183,7 +206,7 @@ public class FrameEditarEliminar extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(89, 89, 89)
                 .addComponent(BtnConfiJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(301, Short.MAX_VALUE))
+                .addContainerGap(281, Short.MAX_VALUE))
         );
 
         pack();
@@ -285,6 +308,39 @@ public class FrameEditarEliminar extends javax.swing.JFrame {
         frame.setVisible (true); 
     }//GEN-LAST:event_BtnConfiJuegoActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        int contador=0;
+        String paragrap="digraph ListaDoble{\n" +
+"	rankdir=TB \n" +
+"	label=\"Lista Doblemete Enlazada\"\n" +
+"	rank=same\n" +
+"	nodesep=0.5\n" +
+"	node [shape=record];\n" +
+"	edge [color=\"blue\", dir=fordware]\n" +
+"	subgraph g{";
+        String relacionesnodos="";
+        
+        Nodo auxiliar=Principal.listadoble.primero;
+        for(int i=1;i<=Principal.listadoble.nodatos;i++){
+            
+                if(i==1){
+                    contador++;
+                    paragrap=paragrap+"lis"+contador+" [label=\"<d> "+auxiliar.dato.nombre+"|<a>\"]";
+                    relacionesnodos=relacionesnodos+"lis"+contador+" -> lis"+contador+1+";\n";
+                    relacionesnodos=relacionesnodos+"lis"+contador+1+" -> lis"+contador+";\n";
+                }else{
+                     contador++;
+                    paragrap=paragrap+"lis"+contador+" [label=\"<d> "+auxiliar.dato.nombre+"|<a>\"];";
+                    relacionesnodos=relacionesnodos+"lis"+contador+" -> lis"+contador+1+";\n";
+                    relacionesnodos=relacionesnodos+"lis"+contador+1+" -> lis"+contador+";\n";
+                      }
+            aux=aux.siguiente;
+        }
+        paragrap=paragrap+"null [label=\"null\", shape=none]";
+        relacionesnodos=relacionesnodos+"lis"+contador+" -> null;\n}";
+        
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -330,6 +386,10 @@ public class FrameEditarEliminar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
