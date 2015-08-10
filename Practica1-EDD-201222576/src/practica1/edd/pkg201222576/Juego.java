@@ -141,6 +141,11 @@ public  class Juego extends javax.swing.JFrame {
     public void GravedadSalto(){
         if(caida<=2){
         NodoMatriz aux= BuscarMario();
+        if(aux.abajo==null){tc.stop(); t.stop(); td.stop();
+        JOptionPane.showMessageDialog(null, "JUEGO TERMINADO:\nSu puntaje fue: "+labelbonusdos.getText()+"\nSuerte"
+                + "para la proxima");
+        System.exit(0);
+        }
                  String nombrepiv=aux.abajo.dato.nombre;
                  String pathpiv=aux.abajo.dato.path;
                  int tipopiv=aux.abajo.dato.tipo;
@@ -163,21 +168,45 @@ public  class Juego extends javax.swing.JFrame {
     public void Gravedad(){
         if(haysuelo==false){
         NodoMatriz aux= BuscarMario();
+        if(aux.abajo==null){tc.stop(); t.stop(); td.stop();
+        JOptionPane.showMessageDialog(null, "JUEGO TERMINADO:\nSu puntaje fue: "+labelbonusdos.getText()+"\nSuerte "
+                + "para la proxima");
+        System.exit(0);
+        }
                  String nombrepiv=aux.abajo.dato.nombre;
                  String pathpiv=aux.abajo.dato.path;
                  int tipopiv=aux.abajo.dato.tipo;
                  if(tipopiv==3 || tipopiv==4){
                      haysuelo=true;
                  }else{
-                 if(tipopiv!=4){
+                 if(tipopiv==5||tipopiv==6){
+                     if(tipopiv==5){
                  aux.abajo.dato.nombre=aux.dato.nombre;
+                 aux.abajo.dato.path=aux.dato.path;
+                 aux.abajo.dato.tipo=aux.dato.tipo;
+                 aux.dato.nombre="nulo";
+                 aux.dato.path="/Imagenes/null.png";
+                 aux.dato.tipo=tipopiv;
+                 Graficar();
+                     }else{
+                        vidas--;
+                        labelvidasdos.setText(""+vidas);
+                 Graficar();
+                 if(vidas==0){
+                     JOptionPane.showMessageDialog(null, "JUEGO TERMINADO:\nSu puntaje fue: "+labelbonusdos.getText()+"\nSuerte "
+                + "para la proxima");
+                    System.exit(0);
+                 }
+                     }
+                 
+                 }else{
+                     aux.abajo.dato.nombre=aux.dato.nombre;
                  aux.abajo.dato.path=aux.dato.path;
                  aux.abajo.dato.tipo=aux.dato.tipo;
                  aux.dato.nombre=nombrepiv;
                  aux.dato.path=pathpiv;
                  aux.dato.tipo=tipopiv;
                  Graficar();
-                 
                  }
                  }
                 }else{
@@ -203,12 +232,23 @@ public  class Juego extends javax.swing.JFrame {
                  String pathpiv=pivo.anterior.dato.path;
                  int tipopiv=pivo.anterior.dato.tipo;
                  if(tipopiv!=4){
-                 pivo.anterior.dato.nombre=pivo.dato.nombre;
+                     if(tipopiv==1){
+                         vidas--;
+                         labelvidasdos.setText(""+vidas);
+                         if (vidas==0){
+                       JOptionPane.showMessageDialog(null, "JUEGO TERMINADO:\nSu puntaje fue: "+labelbonusdos.getText()+"\nSuerte "
+                        + "para la proxima");
+                            System.exit(0);
+                         }
+                     }else{
+                         pivo.anterior.dato.nombre=pivo.dato.nombre;
                  pivo.anterior.dato.path=pivo.dato.path;
                  pivo.anterior.dato.tipo=pivo.dato.tipo;
                  pivo.dato.nombre=nombrepiv;
                  pivo.dato.path=pathpiv;
-                 pivo.dato.tipo=tipopiv;}else{
+                 pivo.dato.tipo=tipopiv;
+                     }
+                 }else{
                      contadormovene++;
                  }
                  
@@ -232,6 +272,15 @@ public  class Juego extends javax.swing.JFrame {
                  String nombrepiv=pivo.siguiente.dato.nombre;
                  String pathpiv=pivo.siguiente.dato.path;
                  int tipopiv=pivo.siguiente.dato.tipo;
+                 if(tipopiv==1){
+                         vidas--;
+                         labelvidasdos.setText(""+vidas);
+                         if (vidas==0){
+                       JOptionPane.showMessageDialog(null, "JUEGO TERMINADO:\nSu puntaje fue: "+labelbonusdos.getText()+"\nSuerte "
+                        + "para la proxima");
+                            System.exit(0);
+                         }
+                     }else{
                  pivo.siguiente.dato.nombre=pivo.dato.nombre;
                  pivo.siguiente.dato.path=pivo.dato.path;
                  pivo.siguiente.dato.tipo=pivo.dato.tipo;
@@ -239,6 +288,7 @@ public  class Juego extends javax.swing.JFrame {
                  pivo.dato.path=pathpiv;
                  pivo.dato.tipo=tipopiv;
                  entro=true;
+                 }
                        }
                 if(entro==false){
                 pivo=pivo.siguiente; 
@@ -452,16 +502,17 @@ public  class Juego extends javax.swing.JFrame {
                  }
                  
                      }else{
-                         aux.siguiente.dato.nombre=aux.dato.nombre;
+                 aux.siguiente.dato.nombre=aux.dato.nombre;
                  aux.siguiente.dato.path=aux.dato.path;
                  aux.siguiente.dato.tipo=aux.dato.tipo;
                  aux.dato.nombre=nombrepiv;
                  aux.dato.path=pathpiv;
                  aux.dato.tipo=tipopiv;
+                 Graficar();
                  NodoMatriz auxdos=BuscarMario();
                  if(auxdos.abajo.dato.tipo==0){
                      haysuelo=false;}
-                 Graficar();
+                 
                  if(haysuelo==false){
                      tc.start();
                  }
@@ -471,10 +522,27 @@ public  class Juego extends javax.swing.JFrame {
             System.out.println("Ha presionado derecha y en la posicion: "+POSENX+","+POSENY);
             break;
              case KeyEvent.VK_LEFT:
+                 if(aux.anterior.abajo.dato.tipo==3 || aux.anterior.abajo.dato.tipo==4){haysuelo=true;}
                  nombrepiv=aux.anterior.dato.nombre;
                  pathpiv=aux.anterior.dato.path;
                  tipopiv=aux.anterior.dato.tipo;
-                 if(tipopiv!=4){
+            if(tipopiv!=4){
+                 if(tipopiv==7 || tipopiv==8){
+                          aux.anterior.dato.nombre=aux.dato.nombre;
+                 aux.anterior.dato.path=aux.dato.path;
+                 aux.anterior.dato.tipo=aux.dato.tipo;
+                 aux.dato.nombre="nulo";
+                 aux.dato.path="/Imagenes/null.png";
+                 aux.dato.tipo=0;
+                 if(aux.abajo.dato.tipo==0){haysuelo=false;}
+                 if(tipopiv==7){bonus++; labelbonusdos.setText(""+bonus);}
+                 if(tipopiv==8){vidas++; labelvidasdos.setText(""+vidas);}
+                 Graficar();
+                 if(haysuelo==false){
+                     tc.start();
+                 }
+                 
+                     }else{
                  aux.anterior.dato.nombre=aux.dato.nombre;
                  aux.anterior.dato.path=aux.dato.path;
                  aux.anterior.dato.tipo=aux.dato.tipo;
@@ -482,7 +550,16 @@ public  class Juego extends javax.swing.JFrame {
                  aux.dato.path=pathpiv;
                  aux.dato.tipo=tipopiv;
                  Graficar();
+                 NodoMatriz auxdos=BuscarMario();
+                 if(auxdos.abajo.dato.tipo==0){
+                     haysuelo=false;}
+                 
+                 if(haysuelo==false){
+                     tc.start();
+                 }
+                 
                 }
+        }
                  
             System.out.println("Ha presionado izquierda y en la posicion: "+POSENX+","+POSENY);
             break;
@@ -498,7 +575,8 @@ public  class Juego extends javax.swing.JFrame {
                  aux.dato.path=pathpiv;
                  aux.dato.tipo=tipopiv;
                  caida=1;
-                 tt.start();
+                 haysuelo=false;
+                 tc.start();
                  }
             System.out.println("Ha presionado arriba y en la posicion: "+POSENX+","+POSENY);
             break;
