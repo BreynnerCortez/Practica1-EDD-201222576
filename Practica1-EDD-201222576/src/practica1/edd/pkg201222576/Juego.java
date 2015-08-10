@@ -217,13 +217,24 @@ public  class Juego extends javax.swing.JFrame {
                                                 
                 System.exit(0);
                  }
+                 if(tipopiv==7){
+                     aux.abajo.dato.nombre=aux.dato.nombre;
+                 aux.abajo.dato.path=aux.dato.path;
+                 aux.abajo.dato.tipo=aux.dato.tipo;
+                 aux.dato.nombre="nulo";
+                 aux.dato.path="/Imagenes/null.png";
+                 aux.dato.tipo=0;
+                 Graficar();
+                 bonus++;
+                 labelbonusdos.setText(""+bonus);
+                 }
                  if(tipopiv==8){
                      aux.abajo.dato.nombre=aux.dato.nombre;
                  aux.abajo.dato.path=aux.dato.path;
                  aux.abajo.dato.tipo=aux.dato.tipo;
                  aux.dato.nombre="nulo";
                  aux.dato.path="/Imagenes/null.png";
-                 aux.dato.tipo=tipopiv;
+                 aux.dato.tipo=0;
                  Graficar();
                  vidas++;
                  labelvidasdos.setText(""+vidas);
@@ -253,7 +264,7 @@ public  class Juego extends javax.swing.JFrame {
                  aux.abajo.dato.tipo=aux.dato.tipo;
                  aux.dato.nombre="nulo";
                  aux.dato.path="/Imagenes/null.png";
-                 aux.dato.tipo=tipopiv;
+                 aux.dato.tipo=0;
                  Graficar();
                      }else{
                         vidas--;
@@ -277,7 +288,7 @@ public  class Juego extends javax.swing.JFrame {
                  }
                      }
                  
-                 }else{
+                 }if(tipopiv==0){
                      aux.abajo.dato.nombre=aux.dato.nombre;
                  aux.abajo.dato.path=aux.dato.path;
                  aux.abajo.dato.tipo=aux.dato.tipo;
@@ -674,17 +685,7 @@ public  class Juego extends javax.swing.JFrame {
                  aux.dato.path="/Imagenes/null.png";
                  aux.dato.tipo=0;
                  if(aux.abajo.dato.tipo==0){haysuelo=false;}
-                 if(tipopiv==7){bonus++; labelbonusdos.setText(""+bonus);
-                                                          try {
-                                    FileInputStream fis;
-                                     Player player;
-                                     fis = new FileInputStream("C:\\Users\\Breynner\\Documents\\SegundoSemestre 2015\\EDD\\sonidos practica 1\\ficha.mp3");
-                                     BufferedInputStream bis = new BufferedInputStream(fis);
-
-                                     player = new Player(bis);
-                                     player.play();         
-                                 } catch (Exception e) {
-                                 }}
+                 if(tipopiv==7){bonus++; labelbonusdos.setText(""+bonus);}
                  if(tipopiv==8){vidas++; labelvidasdos.setText(""+vidas);
                                                           try {
                                     FileInputStream fis;
