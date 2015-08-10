@@ -10,6 +10,8 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -28,6 +30,7 @@ public class EdicionTablero extends javax.swing.JFrame {
     public int posactualy=0;
     public static Matriz mat=new Matriz();
     public static Matriz Matrizpivote=new Matriz();
+    public static String pathreportelista="";
     
     public String a;
     public int POSX=0;
@@ -81,6 +84,10 @@ public class EdicionTablero extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -169,6 +176,30 @@ public class EdicionTablero extends javax.swing.JFrame {
             }
         });
 
+        jMenu1.setText("REPORTES");
+
+        jMenuItem1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        jMenuItem1.setText("Lista Doble Enlazada");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        jMenuItem2.setText("Matriz Ortogonal");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -221,7 +252,7 @@ public class EdicionTablero extends javax.swing.JFrame {
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btn_refrescar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -463,6 +494,115 @@ GraficarLabel();
         }
     }//GEN-LAST:event_jButton8ActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+          
+     int contador=0;
+        String paragrap="digraph ListaDoble{\n" +
+"	rankdir=TB \n" +
+"	label=\"Lista Doblemete Enlazada\"\n" +
+"	rank=same\n" +
+"	nodesep=0.5\n" +
+"	node [shape=record];\n" +
+"	edge [color=\"blue\", dir=fordware]\n" +
+"	subgraph g{";
+        String relacionesnodos="";
+        
+        Nodo auxiliar=Principal.listadoble.primero;
+        for(int i=1;i<=Principal.listadoble.nodatos;i++){
+            
+                if(i==1){
+                    contador++;
+                    int pivote=contador+1;
+                    paragrap=paragrap+"lis"+contador+" [label=\"<d> "+auxiliar.dato.nombre+"|<a>\"]\n";
+                    relacionesnodos=relacionesnodos+"lis"+contador+" -> lis"+pivote+";\n";
+                    relacionesnodos=relacionesnodos+"lis"+pivote+" -> lis"+contador+";\n";
+                }
+                if(i>1&&auxiliar.siguiente!=null){
+                     contador++;
+                     int pivoted=contador+1;
+                    paragrap=paragrap+"lis"+contador+" [label=\"<d> "+auxiliar.dato.nombre+"|<a>\"];\n";
+                    relacionesnodos=relacionesnodos+"lis"+contador+" -> lis"+pivoted+";\n";
+                    relacionesnodos=relacionesnodos+"lis"+pivoted+" -> lis"+contador+";\n";
+                      }
+                if(auxiliar.siguiente==null){
+                    contador++;
+                     int pivoted=contador+1;
+                    paragrap=paragrap+"lis"+contador+" [label=\"<d> "+auxiliar.dato.nombre+"|<a>\"];\n";
+                }
+            auxiliar=auxiliar.siguiente;
+        }
+        paragrap=paragrap+"null [label=\"null\", shape=none]";
+        relacionesnodos=relacionesnodos+"lis"+contador+" -> null;\n}";
+        paragrap=paragrap+"}\n"+relacionesnodos;
+        
+        //hace el archivo
+         try
+              { FileWriter fichero = new FileWriter("C:\\Users\\Breynner\\Desktop\\ReporteListaDoble.txt");;
+                PrintWriter pw = new PrintWriter(fichero);
+                pw.write(paragrap);
+                fichero.close();
+              }
+
+              //Si existe un problema al escribir cae aqui
+              catch(Exception e)
+              {
+              System.out.println("Error al escribir");
+              }
+        
+        
+        
+        try {
+      
+      String dotPath = "C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe";
+      
+      String fileInputPath = "C:\\Users\\Breynner\\Desktop\\ReporteListaDoble.txt";
+      String fileOutputPath = "C:\\Users\\Breynner\\Desktop\\ReporteListaDoble.jpg";
+      
+      String tParam = "-Tjpg";
+      String tOParam = "-o";
+        
+      String[] cmd = new String[5];
+      cmd[0] = dotPath;
+      cmd[1] = tParam;
+      cmd[2] = fileInputPath;
+      cmd[3] = tOParam;
+      cmd[4] = fileOutputPath;
+                  
+      Runtime rt = Runtime.getRuntime();
+      
+      rt.exec( cmd );
+      pathreportelista=fileOutputPath;
+      VisualizarReporte a= new VisualizarReporte();
+      a.setVisible(true);
+      
+    } catch (Exception ex) {
+      ex.printStackTrace();
+    }
+    
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        
+        
+        
+          NodoMatriz pivofila=mat.primerafila;
+        NodoMatriz pivo=mat.primerafila;
+        for(int j=1;j<=mat.nofilas;j++){
+           for(int i=1;i<=mat.nocolumnas;i++){
+                int col=pivo.col;
+                int fila=pivo.fil;
+               //logica para hacer grafo e matriz
+                
+                
+                
+                pivo=pivo.siguiente;
+               }
+            pivo=pivofila.arriba;
+            pivofila=pivofila.arriba;
+        }
+    
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -512,6 +652,10 @@ GraficarLabel();
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     public static javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

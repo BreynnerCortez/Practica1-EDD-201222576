@@ -455,6 +455,7 @@ public  class Juego extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         MenuInicioPausa = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
 
         jMenuItem2.setText("jMenuItem2");
 
@@ -524,6 +525,15 @@ public  class Juego extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem6);
+
+        jMenuItem7.setFont(new java.awt.Font("Lucida Sans Typewriter", 0, 18)); // NOI18N
+        jMenuItem7.setText("Ver Matriz");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem7);
 
         jMenuBar1.add(jMenu1);
 
@@ -613,16 +623,6 @@ public  class Juego extends javax.swing.JFrame {
                  if(aux.abajo.dato.tipo==0){haysuelo=false;}
                 
                  if(tipopiv==7){bonus++; labelbonusdos.setText(""+bonus);
-                                                          try {
-                                    FileInputStream fis;
-                                     Player player;
-                                     fis = new FileInputStream("C:\\Users\\Breynner\\Documents\\SegundoSemestre 2015\\EDD\\sonidos practica 1\\ficha.mp3");
-                                     BufferedInputStream bis = new BufferedInputStream(fis);
-
-                                     player = new Player(bis);
-                                     player.play();         
-                                 } catch (Exception e) {
-                                 }
                  }
                  if(tipopiv==8){vidas++; labelvidasdos.setText(""+vidas);
                                                           try {
@@ -789,6 +789,25 @@ public  class Juego extends javax.swing.JFrame {
         labelbonusdos.setVisible(false);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        NodoMatriz pivofila=matrizpivote.primerafila;
+        NodoMatriz pivo=matrizpivote.primerafila;
+        for(int j=1;j<=matrizpivote.nofilas;j++){
+           for(int i=1;i<=matrizpivote.nocolumnas;i++){
+                int col=pivo.col;
+                int fila=pivo.fil;
+                //logica para hacer grafo de matriz
+                
+                
+                
+                pivo=pivo.siguiente;
+                }
+            pivo=pivofila.arriba;
+            pivofila=pivofila.arriba;
+            
+        }
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -833,6 +852,7 @@ public  class Juego extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelbonus;
     private javax.swing.JLabel labelbonusdos;
