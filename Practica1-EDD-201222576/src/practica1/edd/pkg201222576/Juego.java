@@ -34,6 +34,7 @@ public  class Juego extends javax.swing.JFrame {
     int vidas=1;
     int bonus=0;
     int caida=1;
+    Boolean haysuelo=false;
    
     public Juego() {
         initComponents();
@@ -71,14 +72,20 @@ public  class Juego extends javax.swing.JFrame {
             }
         };
          td=new Timer(1000, ac2);
-        
         ac3=new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-             GravedadAbajo();
+             GravedadSalto();
                 }
         };
-        tt=new Timer(800, ac3);
+        tt=new Timer(1100, ac3);
+        ac4=new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+             Gravedad();
+                }
+        };
+        tc=new Timer(900, ac4);
 
     }
     
@@ -131,8 +138,8 @@ public  class Juego extends javax.swing.JFrame {
         
     }
     
-    public void GravedadAbajo(){
-        if(caida<2){
+    public void GravedadSalto(){
+        if(caida<=2){
         NodoMatriz aux= BuscarMario();
                  String nombrepiv=aux.abajo.dato.nombre;
                  String pathpiv=aux.abajo.dato.path;
@@ -150,6 +157,32 @@ public  class Juego extends javax.swing.JFrame {
             tt.stop();
         }
                  caida++;
+        
+    }
+    
+    public void Gravedad(){
+        if(haysuelo==false){
+        NodoMatriz aux= BuscarMario();
+                 String nombrepiv=aux.abajo.dato.nombre;
+                 String pathpiv=aux.abajo.dato.path;
+                 int tipopiv=aux.abajo.dato.tipo;
+                 if(tipopiv==3 || tipopiv==4){
+                     haysuelo=true;
+                 }else{
+                 if(tipopiv!=4){
+                 aux.abajo.dato.nombre=aux.dato.nombre;
+                 aux.abajo.dato.path=aux.dato.path;
+                 aux.abajo.dato.tipo=aux.dato.tipo;
+                 aux.dato.nombre=nombrepiv;
+                 aux.dato.path=pathpiv;
+                 aux.dato.tipo=tipopiv;
+                 Graficar();
+                 
+                 }
+                 }
+                }else{
+            tc.stop();
+        }
         
     }
 
@@ -398,18 +431,43 @@ public  class Juego extends javax.swing.JFrame {
 
            
             case KeyEvent.VK_RIGHT:
+                if(aux.siguiente.abajo.dato.tipo==3 || aux.siguiente.abajo.dato.tipo==4){haysuelo=true;}
                  nombrepiv=aux.siguiente.dato.nombre;
                  pathpiv=aux.siguiente.dato.path;
                  tipopiv=aux.siguiente.dato.tipo;
                  if(tipopiv!=4){
-                 aux.siguiente.dato.nombre=aux.dato.nombre;
+                     if(tipopiv==7 || tipopiv==8){
+                          aux.siguiente.dato.nombre=aux.dato.nombre;
+                 aux.siguiente.dato.path=aux.dato.path;
+                 aux.siguiente.dato.tipo=aux.dato.tipo;
+                 aux.dato.nombre="nulo";
+                 aux.dato.path="/Imagenes/null.png";
+                 aux.dato.tipo=0;
+                 if(aux.abajo.dato.tipo==0){haysuelo=false;}
+                 if(tipopiv==7){bonus++; labelbonusdos.setText(""+bonus);}
+                 if(tipopiv==8){vidas++; labelvidasdos.setText(""+vidas);}
+                 Graficar();
+                 if(haysuelo==false){
+                     tc.start();
+                 }
+                 
+                     }else{
+                         aux.siguiente.dato.nombre=aux.dato.nombre;
                  aux.siguiente.dato.path=aux.dato.path;
                  aux.siguiente.dato.tipo=aux.dato.tipo;
                  aux.dato.nombre=nombrepiv;
                  aux.dato.path=pathpiv;
                  aux.dato.tipo=tipopiv;
+                 NodoMatriz auxdos=BuscarMario();
+                 if(auxdos.abajo.dato.tipo==0){
+                     haysuelo=false;}
                  Graficar();
+                 if(haysuelo==false){
+                     tc.start();
                  }
+                     }
+                 }
+                  
             System.out.println("Ha presionado derecha y en la posicion: "+POSENX+","+POSENY);
             break;
              case KeyEvent.VK_LEFT:
@@ -424,7 +482,7 @@ public  class Juego extends javax.swing.JFrame {
                  aux.dato.path=pathpiv;
                  aux.dato.tipo=tipopiv;
                  Graficar();
-                 }
+                }
                  
             System.out.println("Ha presionado izquierda y en la posicion: "+POSENX+","+POSENY);
             break;
@@ -439,6 +497,7 @@ public  class Juego extends javax.swing.JFrame {
                  aux.dato.nombre=nombrepiv;
                  aux.dato.path=pathpiv;
                  aux.dato.tipo=tipopiv;
+                 caida=1;
                  tt.start();
                  }
             System.out.println("Ha presionado arriba y en la posicion: "+POSENX+","+POSENY);
