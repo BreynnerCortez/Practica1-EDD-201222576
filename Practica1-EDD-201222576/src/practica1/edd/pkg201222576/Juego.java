@@ -145,9 +145,7 @@ public  class Juego extends javax.swing.JFrame {
         if(caida<=2){
         NodoMatriz aux= BuscarMario();
         if(aux.abajo==null){tc.stop(); t.stop(); td.stop();
-        JOptionPane.showMessageDialog(null, "JUEGO TERMINADO:\nSu puntaje fue: "+labelbonusdos.getText()+"\nSuerte "
-                + "para la proxima");
-                                                 try {
+         try {
                                     FileInputStream fis;
                                      Player player;
                                      fis = new FileInputStream("C:\\Users\\Breynner\\Documents\\SegundoSemestre 2015\\EDD\\sonidos practica 1\\fin.mp3");
@@ -157,6 +155,9 @@ public  class Juego extends javax.swing.JFrame {
                                      player.play();         
                                  } catch (Exception e) {
                                  }
+        JOptionPane.showMessageDialog(null, "JUEGO TERMINADO:\nSu puntaje fue: "+labelbonusdos.getText()+"\nSuerte "
+                + "para la proxima");
+                                                
         System.exit(0);
         }
                  String nombrepiv=aux.abajo.dato.nombre;
@@ -182,9 +183,7 @@ public  class Juego extends javax.swing.JFrame {
         if(haysuelo==false){
         NodoMatriz aux= BuscarMario();
         if(aux.abajo==null){tc.stop(); t.stop(); td.stop();
-        JOptionPane.showMessageDialog(null, "JUEGO TERMINADO:\nSu puntaje fue: "+labelbonusdos.getText()+"\nSuerte "
-                + "para la proxima");
-                                                 try {
+         try {
                                     FileInputStream fis;
                                      Player player;
                                      fis = new FileInputStream("C:\\Users\\Breynner\\Documents\\SegundoSemestre 2015\\EDD\\sonidos practica 1\\fin.mp3");
@@ -194,15 +193,16 @@ public  class Juego extends javax.swing.JFrame {
                                      player.play();         
                                  } catch (Exception e) {
                                  }
+        JOptionPane.showMessageDialog(null, "JUEGO TERMINADO:\nSu puntaje fue: "+labelbonusdos.getText()+"\nSuerte "
+                + "para la proxima");
+                                                
         System.exit(0);
         }
                  String nombrepiv=aux.abajo.dato.nombre;
                  String pathpiv=aux.abajo.dato.path;
                  int tipopiv=aux.abajo.dato.tipo;
-                 if(tipopiv==2){ JOptionPane.showMessageDialog(null, "JUEGO TERMINADO:\n"
-                         + "FELICITACIONES HA GANADO!\nSu puntaje fue: "+labelbonusdos.getText()+"\nSuerte "
-                + "para la proxima");
-                                                 try {
+                 if(tipopiv==2){ 
+                      try {
                                     FileInputStream fis;
                                      Player player;
                                      fis = new FileInputStream("C:\\Users\\Breynner\\Documents\\SegundoSemestre 2015\\EDD\\sonidos practica 1\\fin.mp3");
@@ -212,6 +212,35 @@ public  class Juego extends javax.swing.JFrame {
                                      player.play();         
                                  } catch (Exception e) {
                                  }
+                     JOptionPane.showMessageDialog(null, "JUEGO TERMINADO:\n"
+                         + "FELICITACIONES HA GANADO!\nSu puntaje fue: "+labelbonusdos.getText());
+                                                
+                System.exit(0);
+                 }
+                 if(tipopiv==8){
+                     aux.abajo.dato.nombre=aux.dato.nombre;
+                 aux.abajo.dato.path=aux.dato.path;
+                 aux.abajo.dato.tipo=aux.dato.tipo;
+                 aux.dato.nombre="nulo";
+                 aux.dato.path="/Imagenes/null.png";
+                 aux.dato.tipo=tipopiv;
+                 Graficar();
+                 vidas++;
+                 labelvidasdos.setText(""+vidas);
+                 
+                      try {
+                                    FileInputStream fis;
+                                     Player player;
+                                     fis = new FileInputStream("C:\\Users\\Breynner\\Documents\\SegundoSemestre 2015\\EDD\\sonidos practica 1\\vida.mp3");
+                                     BufferedInputStream bis = new BufferedInputStream(fis);
+
+                                     player = new Player(bis);
+                                     player.play();         
+                                 } catch (Exception e) {
+                                 }
+                     JOptionPane.showMessageDialog(null, "JUEGO TERMINADO:\n"
+                         + "FELICITACIONES HA GANADO!\nSu puntaje fue: "+labelbonusdos.getText());
+                                                
                 System.exit(0);
                  }
                  if(tipopiv==3 || tipopiv==4){
@@ -231,9 +260,7 @@ public  class Juego extends javax.swing.JFrame {
                         labelvidasdos.setText(""+vidas);
                  Graficar();
                  if(vidas==0){
-                     JOptionPane.showMessageDialog(null, "JUEGO TERMINADO:\nSu puntaje fue: "+labelbonusdos.getText()+"\nSuerte "
-                + "para la proxima");
-                                try {
+                     try {
                                     FileInputStream fis;
                                      Player player;
                                      fis = new FileInputStream("C:\\Users\\Breynner\\Documents\\SegundoSemestre 2015\\EDD\\sonidos practica 1\\fin.mp3");
@@ -243,6 +270,9 @@ public  class Juego extends javax.swing.JFrame {
                                      player.play();         
                                  } catch (Exception e) {
                                  }
+                     JOptionPane.showMessageDialog(null, "JUEGO TERMINADO:\nSu puntaje fue: "+labelbonusdos.getText()+"\nSuerte "
+                + "para la proxima");
+                                
                     System.exit(0);
                  }
                      }
@@ -284,9 +314,7 @@ public  class Juego extends javax.swing.JFrame {
                          vidas--;
                          labelvidasdos.setText(""+vidas);
                          if (vidas==0){
-                       JOptionPane.showMessageDialog(null, "JUEGO TERMINADO:\nSu puntaje fue: "+labelbonusdos.getText()+"\nSuerte "
-                        + "para la proxima");
-                                                try {
+                              try {
                                     FileInputStream fis;
                                      Player player;
                                      fis = new FileInputStream("C:\\Users\\Breynner\\Documents\\SegundoSemestre 2015\\EDD\\sonidos practica 1\\fin.mp3");
@@ -296,6 +324,9 @@ public  class Juego extends javax.swing.JFrame {
                                      player.play();         
                                  } catch (Exception e) {
                                  }
+                       JOptionPane.showMessageDialog(null, "JUEGO TERMINADO:\nSu puntaje fue: "+labelbonusdos.getText()+"\nSuerte "
+                        + "para la proxima");
+                                               
                             System.exit(0);
                          }
                      }else{
@@ -334,9 +365,7 @@ public  class Juego extends javax.swing.JFrame {
                          vidas--;
                          labelvidasdos.setText(""+vidas);
                          if (vidas==0){
-                       JOptionPane.showMessageDialog(null, "JUEGO TERMINADO:\nSu puntaje fue: "+labelbonusdos.getText()+"\nSuerte "
-                        + "para la proxima");
-                                                                try {
+                             try {
                                     FileInputStream fis;
                                      Player player;
                                      fis = new FileInputStream("C:\\Users\\Breynner\\Documents\\SegundoSemestre 2015\\EDD\\sonidos practica 1\\fin.mp3");
@@ -346,6 +375,9 @@ public  class Juego extends javax.swing.JFrame {
                                      player.play();         
                                  } catch (Exception e) {
                                  }
+                       JOptionPane.showMessageDialog(null, "JUEGO TERMINADO:\nSu puntaje fue: "+labelbonusdos.getText()+"\nSuerte "
+                        + "para la proxima");
+                                                                
                             System.exit(0);
                          }
                      }else{
@@ -554,18 +586,8 @@ public  class Juego extends javax.swing.JFrame {
                  pathpiv=aux.siguiente.dato.path;
                  tipopiv=aux.siguiente.dato.tipo;
                  if(tipopiv!=4){
-                     if(tipopiv==7 || tipopiv==8){
-                          aux.siguiente.dato.nombre=aux.dato.nombre;
-                 aux.siguiente.dato.path=aux.dato.path;
-                 aux.siguiente.dato.tipo=aux.dato.tipo;
-                 aux.dato.nombre="nulo";
-                 aux.dato.path="/Imagenes/null.png";
-                 aux.dato.tipo=0;
-                 if(aux.abajo.dato.tipo==0){haysuelo=false;}
-                 if(tipopiv==2){ JOptionPane.showMessageDialog(null, "JUEGO TERMINADO:\n"
-                         + "FELICITACIONES HA GANADO!\nSu puntaje fue: "+labelbonusdos.getText()+"\nSuerte "
-                + "para la proxima");
-                                                 try {
+                      if(tipopiv==2){ 
+                        try {
                                     FileInputStream fis;
                                      Player player;
                                      fis = new FileInputStream("C:\\Users\\Breynner\\Documents\\SegundoSemestre 2015\\EDD\\sonidos practica 1\\fin.mp3");
@@ -575,8 +597,21 @@ public  class Juego extends javax.swing.JFrame {
                                      player.play();         
                                  } catch (Exception e) {
                                  }
+                     JOptionPane.showMessageDialog(null, "JUEGO TERMINADO:\n"
+                         + "FELICITACIONES HA GANADO!\nSu puntaje fue: "+labelbonusdos.getText()+"\nSuerte "
+                + "para la proxima");
+                                              
                 System.exit(0);
                  }
+                     if(tipopiv==7 || tipopiv==8){
+                          aux.siguiente.dato.nombre=aux.dato.nombre;
+                 aux.siguiente.dato.path=aux.dato.path;
+                 aux.siguiente.dato.tipo=aux.dato.tipo;
+                 aux.dato.nombre="nulo";
+                 aux.dato.path="/Imagenes/null.png";
+                 aux.dato.tipo=0;
+                 if(aux.abajo.dato.tipo==0){haysuelo=false;}
+                
                  if(tipopiv==7){bonus++; labelbonusdos.setText(""+bonus);
                                                           try {
                                     FileInputStream fis;
