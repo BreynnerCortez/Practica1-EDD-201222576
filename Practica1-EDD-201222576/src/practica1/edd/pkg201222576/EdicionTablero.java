@@ -88,6 +88,8 @@ public class EdicionTablero extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -179,7 +181,7 @@ public class EdicionTablero extends javax.swing.JFrame {
         jMenu1.setText("REPORTES");
 
         jMenuItem1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
-        jMenuItem1.setText("Lista Doble Enlazada");
+        jMenuItem1.setText("Crear Reporte Lista Doble Enlazada");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -188,13 +190,31 @@ public class EdicionTablero extends javax.swing.JFrame {
         jMenu1.add(jMenuItem1);
 
         jMenuItem2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
-        jMenuItem2.setText("Matriz Ortogonal");
+        jMenuItem2.setText("Crear Reporte Matriz Ortogonal");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
             }
         });
         jMenu1.add(jMenuItem2);
+
+        jMenuItem3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        jMenuItem3.setText("Ver Reporte Lista Doble Enlazada");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
+
+        jMenuItem4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        jMenuItem4.setText("Ver Reporte Matriz Ortogonal");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
 
         jMenuBar1.add(jMenu1);
 
@@ -576,29 +596,102 @@ GraficarLabel();
     } catch (Exception ex) {
       ex.printStackTrace();
     }
-    pathreportelista=pathreportelista;
-      VisualizarReporte a= new VisualizarReporte();
-      a.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        int contacol=0;
+        int contafil=0;
+        String paragrap="digraph g{\n" +
+        "edge [color=\"blue\", dir=fordware]\n" +
+        "\n" +
+        "node[shape=record]\n";
+       String relacol="";
+       String relafil="ranksep = .5; splines=ortho;\n" +
+                        "{\n" +
+                        "node [shape = record ];";
         NodoMatriz pivofila=mat.primerafila;
         NodoMatriz pivo=mat.primerafila;
+        while(pivo.arriba!=null){
+            pivo=pivo.arriba;
+            pivofila=pivo.arriba;
+        }
+       
+        
         for(int j=1;j<=mat.nofilas;j++){
            for(int i=1;i<=mat.nocolumnas;i++){
-                int col=pivo.col;
-                int fila=pivo.fil;
-               //logica para hacer grafo e matriz
+                contacol++;
+                int pivote=contacol+1;
+                paragrap=paragrap+"mat"+contacol+"[label=\"<f0>|<f1>"+pivo.dato.nombre+"|<f2>\"];";
+               
                 
                 
                 
                 pivo=pivo.siguiente;
                }
-            pivo=pivofila.arriba;
-            pivofila=pivofila.arriba;
+           contafil++;
+           int pivotefil=contafil++;
+            relafil=relafil+"mat"+contafil+"->"+pivotefil+";";
+            relafil=relafil+"mat"+pivotefil+"->"+contafil+";";
+            pivo=pivofila.abajo;
+            pivofila=pivofila.abajo;
         }
+
+        
+        
+        
+        
+        //hace el archivo
+         try
+              { FileWriter fichero = new FileWriter("C:\\Users\\Breynner\\Desktop\\ReporteMatrizOrtogonal.txt");;
+                PrintWriter pw = new PrintWriter(fichero);
+      //          pw.write(paragrap);
+                fichero.close();
+              }
+
+              //Si existe un problema al escribir cae aqui
+              catch(Exception e)
+              {
+              System.out.println("Error al escribir");
+              }
+        
+        
+        
+        try {
+      
+      String dotPath = "C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe";
+      
+      String fileInputPath = "C:\\Users\\Breynner\\Desktop\\ReporteMatrizOrtogonal.txt";
+      String fileOutputPath = "C:\\Users\\Breynner\\Desktop\\ReporteMatrizOrtogonal.jpg";
+      
+      String tParam = "-Tjpg";
+      String tOParam = "-o";
+        
+      String[] cmd = new String[5];
+      cmd[0] = dotPath;
+      cmd[1] = tParam;
+      cmd[2] = fileInputPath;
+      cmd[3] = tOParam;
+      cmd[4] = fileOutputPath;
+                  
+      Runtime rt = Runtime.getRuntime();
+      
+      rt.exec( cmd );
+      pathreportelista=fileOutputPath;
+      
+    } catch (Exception ex) {
+      ex.printStackTrace();
+    }
     
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        VisualizarReporte a=new VisualizarReporte();
+        a.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -653,6 +746,8 @@ GraficarLabel();
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     public static javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
