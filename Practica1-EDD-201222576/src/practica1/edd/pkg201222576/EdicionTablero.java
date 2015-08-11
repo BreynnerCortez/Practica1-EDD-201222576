@@ -529,7 +529,7 @@ GraficarLabel();
         
         Nodo auxiliar=Principal.listadoble.primero;
         for(int i=1;i<=Principal.listadoble.nodatos;i++){
-            
+            if(auxiliar!=null){
                 if(i==1){
                     contador++;
                     int pivote=contador+1;
@@ -550,6 +550,8 @@ GraficarLabel();
                     paragrap=paragrap+"lis"+contador+" [label=\"<d> "+auxiliar.dato.nombre+"|<a>\"];\n";
                 }
             auxiliar=auxiliar.siguiente;
+            }
+            
         }
         paragrap=paragrap+"null [label=\"null\", shape=none]";
         relacionesnodos=relacionesnodos+"lis"+contador+" -> null;\n}";
@@ -599,8 +601,8 @@ GraficarLabel();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        int contacol=0;
-        int contafil=0;
+        int contadornulls=0;
+        String nulls="";
         String paragrap="digraph g{\n" +
         "edge [color=\"blue\", dir=fordware]\n" +
         "\n" +
@@ -613,28 +615,41 @@ GraficarLabel();
         NodoMatriz pivo=mat.primerafila;
         while(pivo.arriba!=null){
             pivo=pivo.arriba;
-            pivofila=pivo.arriba;
+            pivofila=pivo;
         }
        
         
         for(int j=1;j<=mat.nofilas;j++){
+            relacol=relacol+"{\nrank = same;";
            for(int i=1;i<=mat.nocolumnas;i++){
-                contacol++;
-                int pivote=contacol+1;
-                paragrap=paragrap+"mat"+contacol+"[label=\"<f0>|<f1>"+pivo.dato.nombre+"|<f2>\"];";
-               
+                if(pivo.siguiente!=null){
+                paragrap=paragrap+"mat"+pivo.col+pivo.fil+"[label=\"<f0>|<f1>"+pivo.dato.nombre+"|<f2>\"];";
+                relacol=relacol+"mat"+pivo.col+pivo.fil+":f2 -> mat"+pivo.siguiente.col+pivo.siguiente.fil+":"
+                        + "f0;\nmat"+pivo.siguiente.col+pivo.siguiente.fil+":f0 -> mat"+pivo.col+pivo.fil+":f2;";
+                }else{
+                    contadornulls++;
+                    paragrap=paragrap+"mat"+pivo.col+pivo.fil+"[label=\"<f0>|<f1>"+pivo.dato.nombre+"|<f2>\"];";
+                relacol=relacol+"mat"+pivo.col+pivo.fil+":f2 -> nulo"+contadornulls;
+                }
                 
-                
-                
+                 if(pivo.abajo!=null){
+                relafil=relafil+"mat"+pivo.col+pivo.fil+"->mat"+pivo.abajo.col+pivo.abajo.fil+";";
+                relafil=relafil+"mat"+pivo.abajo.col+pivo.abajo.fil+"->mat"+pivo.col+pivo.fil+";";
+                }
                 pivo=pivo.siguiente;
                }
-           contafil++;
-           int pivotefil=contafil++;
-            relafil=relafil+"mat"+contafil+"->"+pivotefil+";";
-            relafil=relafil+"mat"+pivotefil+"->"+contafil+";";
+           relacol=relacol+"}\n";
+            
             pivo=pivofila.abajo;
             pivofila=pivofila.abajo;
         }
+        
+        for(int c=1;c<=contadornulls;c++){
+        nulls="nulo"+c+";";
+                }
+        
+        relafil=relafil+"}";
+        paragrap=paragrap+nulls+relafil+relacol+"}";
 
         
         
@@ -644,7 +659,7 @@ GraficarLabel();
          try
               { FileWriter fichero = new FileWriter("C:\\Users\\Breynner\\Desktop\\ReporteMatrizOrtogonal.txt");;
                 PrintWriter pw = new PrintWriter(fichero);
-      //          pw.write(paragrap);
+          pw.write(paragrap);
                 fichero.close();
               }
 
@@ -690,7 +705,8 @@ GraficarLabel();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
+        VisualizarReporte a=new VisualizarReporte();
+        a.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**

@@ -4,17 +4,32 @@
  * and open the template in the editor.
  */
 package practica1.edd.pkg201222576;
+
+import java.io.File;
+import java.io.FileWriter;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
+import static practica1.edd.pkg201222576.EdicionTablero.PanelTablero;
+
 /**
  *
  * @author Breynner
  */
-public class pruebamatriz extends javax.swing.JFrame {
+public class VisualizarReporteEnEjecucion extends javax.swing.JFrame {
 
-    /**
-     * Creates new form pruebamatriz
-     */
-    public pruebamatriz() {
+
+    public VisualizarReporteEnEjecucion() {
         initComponents();
+        setTitle("REPORTES");
+        ((JPanel)getContentPane()).setOpaque(false);
+        ImageIcon uno= new ImageIcon(Juego.pathreportelista);
+        JLabel fondo= new JLabel();
+        fondo.setIcon(uno);
+        getLayeredPane().add(fondo, JLayeredPane.FRAME_CONTENT_LAYER);
+        fondo.setBounds(0, 0, uno.getIconWidth(), uno.getIconHeight());
+        jScrollPane1.setViewportView(fondo);
     }
 
     /**
@@ -26,63 +41,25 @@ public class pruebamatriz extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(90, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 806, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-      
-      String dotPath = "C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe";
-      
-      String fileInputPath = "C:\\Users\\Breynner\\Desktop\\pruebaeddmatriz.txt";
-      String fileOutputPath = "C:\\Users\\Breynner\\Desktop\\pruebaeddmatriz.jpg";
-      
-      String tParam = "-Tjpg";
-      String tOParam = "-o";
-        
-      String[] cmd = new String[5];
-      cmd[0] = dotPath;
-      cmd[1] = tParam;
-      cmd[2] = fileInputPath;
-      cmd[3] = tOParam;
-      cmd[4] = fileOutputPath;
-                  
-      Runtime rt = Runtime.getRuntime();
-      
-      rt.exec( cmd );
-      
-    } catch (Exception ex) {
-      ex.printStackTrace();
-    }
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -101,25 +78,28 @@ public class pruebamatriz extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(pruebamatriz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VisualizarReporteEnEjecucion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(pruebamatriz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VisualizarReporteEnEjecucion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(pruebamatriz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VisualizarReporteEnEjecucion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(pruebamatriz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VisualizarReporteEnEjecucion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new pruebamatriz().setVisible(true);
+                new VisualizarReporteEnEjecucion().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

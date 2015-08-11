@@ -14,6 +14,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -25,7 +27,8 @@ import javazoom.jl.player.Player;
  * @author Breynner
  */
 public  class Juego extends javax.swing.JFrame {
-
+    
+    public static String pathreportelista="";
     public static Matriz matrizpivote=EdicionTablero.mat;;
     public Timer t,td,tt,tc;
     public ActionListener ac,ac2,ac3,ac4;
@@ -467,6 +470,7 @@ public  class Juego extends javax.swing.JFrame {
         MenuInicioPausa = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
 
         jMenuItem2.setText("jMenuItem2");
 
@@ -538,13 +542,22 @@ public  class Juego extends javax.swing.JFrame {
         jMenu1.add(jMenuItem6);
 
         jMenuItem7.setFont(new java.awt.Font("Lucida Sans Typewriter", 0, 18)); // NOI18N
-        jMenuItem7.setText("Ver Matriz");
+        jMenuItem7.setText("Crear Reporte Matriz");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem7ActionPerformed(evt);
             }
         });
         jMenu1.add(jMenuItem7);
+
+        jMenuItem8.setFont(new java.awt.Font("Lucida Sans Typewriter", 0, 18)); // NOI18N
+        jMenuItem8.setText("Ver Reporte Matriz");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem8);
 
         jMenuBar1.add(jMenu1);
 
@@ -761,6 +774,7 @@ public  class Juego extends javax.swing.JFrame {
            labelvidasdos.setText(""+vidas);
         labelvidasdos.setVisible(true);
         labelbonus.setVisible(true);
+        labelmensaje.setText("Buena Suerte! :) ");
         labelbonusdos.setText(""+bonus);
         labelbonusdos.setVisible(true);
        }else{
@@ -791,23 +805,107 @@ public  class Juego extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+  int contadornulls=0;
+        String nulls="";
+        String paragrap="digraph g{\n" +
+        "edge [color=\"blue\", dir=fordware]\n" +
+        "\n" +
+        "node[shape=record]\n";
+       String relacol="";
+       String relafil="ranksep = .5; splines=ortho;\n" +
+                        "{\n" +
+                        "node [shape = record ];";
         NodoMatriz pivofila=matrizpivote.primerafila;
         NodoMatriz pivo=matrizpivote.primerafila;
-        for(int j=1;j<=matrizpivote.nofilas;j++){
-           for(int i=1;i<=matrizpivote.nocolumnas;i++){
-                int col=pivo.col;
-                int fila=pivo.fil;
-                //logica para hacer grafo de matriz
-                
-                
-                
-                pivo=pivo.siguiente;
-                }
-            pivo=pivofila.arriba;
-            pivofila=pivofila.arriba;
-            
+        while(pivo.arriba!=null){
+            pivo=pivo.arriba;
+            pivofila=pivo;
         }
+       
+        
+        for(int j=1;j<=matrizpivote.nofilas;j++){
+            relacol=relacol+"{\nrank = same;";
+           for(int i=1;i<=matrizpivote.nocolumnas;i++){
+                if(pivo.siguiente!=null){
+                paragrap=paragrap+"mat"+pivo.col+pivo.fil+"[label=\"<f0>|<f1>"+pivo.dato.nombre+"|<f2>\"];";
+                relacol=relacol+"mat"+pivo.col+pivo.fil+":f2 -> mat"+pivo.siguiente.col+pivo.siguiente.fil+":"
+                        + "f0;\nmat"+pivo.siguiente.col+pivo.siguiente.fil+":f0 -> mat"+pivo.col+pivo.fil+":f2;";
+                }else{
+                    contadornulls++;
+                    paragrap=paragrap+"mat"+pivo.col+pivo.fil+"[label=\"<f0>|<f1>"+pivo.dato.nombre+"|<f2>\"];";
+                relacol=relacol+"mat"+pivo.col+pivo.fil+":f2 -> nulo"+contadornulls;
+                }
+                
+                 if(pivo.abajo!=null){
+                relafil=relafil+"mat"+pivo.col+pivo.fil+"->mat"+pivo.abajo.col+pivo.abajo.fil+";";
+                relafil=relafil+"mat"+pivo.abajo.col+pivo.abajo.fil+"->mat"+pivo.col+pivo.fil+";";
+                }
+                pivo=pivo.siguiente;
+               }
+           relacol=relacol+"}\n";
+            
+            pivo=pivofila.abajo;
+            pivofila=pivofila.abajo;
+        }
+        
+        for(int c=1;c<=contadornulls;c++){
+        nulls="nulo"+c+";";
+                }
+        
+        relafil=relafil+"}";
+        paragrap=paragrap+nulls+relafil+relacol+"}";
+
+        
+        
+        
+        
+        //hace el archivo
+         try
+              { FileWriter fichero = new FileWriter("C:\\Users\\Breynner\\Desktop\\ReporteMatrizOrtogonal.txt");;
+                PrintWriter pw = new PrintWriter(fichero);
+          pw.write(paragrap);
+                fichero.close();
+              }
+
+              //Si existe un problema al escribir cae aqui
+              catch(Exception e)
+              {
+              System.out.println("Error al escribir");
+              }
+        
+        
+        
+        try {
+      
+      String dotPath = "C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe";
+      
+      String fileInputPath = "C:\\Users\\Breynner\\Desktop\\ReporteMatrizOrtogonal.txt";
+      String fileOutputPath = "C:\\Users\\Breynner\\Desktop\\ReporteMatrizOrtogonal.jpg";
+      
+      String tParam = "-Tjpg";
+      String tOParam = "-o";
+        
+      String[] cmd = new String[5];
+      cmd[0] = dotPath;
+      cmd[1] = tParam;
+      cmd[2] = fileInputPath;
+      cmd[3] = tOParam;
+      cmd[4] = fileOutputPath;
+                  
+      Runtime rt = Runtime.getRuntime();
+      
+      rt.exec( cmd );
+      pathreportelista=fileOutputPath;
+      
+    } catch (Exception ex) {
+      ex.printStackTrace();
+    }       
     }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+       VisualizarReporteEnEjecucion a=new VisualizarReporteEnEjecucion();
+        a.setVisible(true);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -854,6 +952,7 @@ public  class Juego extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelbonus;
     private javax.swing.JLabel labelbonusdos;
