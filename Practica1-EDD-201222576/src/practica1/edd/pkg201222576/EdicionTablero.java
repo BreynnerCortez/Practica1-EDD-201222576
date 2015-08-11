@@ -60,7 +60,8 @@ public class EdicionTablero extends javax.swing.JFrame {
         }else{
             jLabel2.setText("IMPLEMENTACION COMO COLA:");
             ImageIcon presentacion=new ImageIcon(this.getClass().getResource(Principal.listadoble.ultimo.dato.path));
-         LabelImagen.setIcon(presentacion);
+             LabelImagen.setIcon(presentacion);
+            
         }
          
     }
