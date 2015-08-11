@@ -5,6 +5,7 @@
  */
 package practica1.edd.pkg201222576;
 
+import java.awt.Dimension;
 import java.io.File;
 import java.io.FileWriter;
 import javax.swing.ImageIcon;
@@ -30,6 +31,8 @@ public class VisualizarReporte extends javax.swing.JFrame {
         getLayeredPane().add(fondo, JLayeredPane.FRAME_CONTENT_LAYER);
         fondo.setBounds(0, 0, uno.getIconWidth(), uno.getIconHeight());
         jScrollPane1.setViewportView(fondo);
+         jScrollPane1.revalidate();
+        jScrollPane1.updateUI();
     }
 
     /**

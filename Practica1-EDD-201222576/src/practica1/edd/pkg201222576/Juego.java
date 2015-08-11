@@ -252,10 +252,7 @@ public  class Juego extends javax.swing.JFrame {
                                      player.play();         
                                  } catch (Exception e) {
                                  }
-                     JOptionPane.showMessageDialog(null, "JUEGO TERMINADO:\n"
-                         + "FELICITACIONES HA GANADO!\nSu puntaje fue: "+labelbonusdos.getText());
-                                                
-                System.exit(0);
+                     
                  }
                  if(tipopiv==3 || tipopiv==4){
                      haysuelo=true;
